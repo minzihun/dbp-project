@@ -1,24 +1,20 @@
 block manager
+  ul.navbar-nav
+    li.nav-item.dropdown
+      a#navbarDropdown.a.btn.btn.btn-outline.ml-md-3.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+        | 프로젝트
+      .dropdown-menu(aria-labelledby="navbarDropdown")
+        a.dropdown-item(href="/employee/myprojects") 관리
+        a.dropdown-item(href="/employee/createProject") 등록
   ul.navbar-nav.mr-auto
     li.nav-item
-      a.nav-link(href="/management/aboutDeveloper")
-        | Employee
-    li.nav-item.dropdown
-      a#navbarDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-        | Client
-      .dropdown-menu(aria-labelledby="navbarDropdown")
-        a.dropdown-item(href="/management/aboutClient") 조회
-        a.dropdown-item(href="/management/addClient") 추가
-    li.nav-item.dropdown
-      a#navbarDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-        | Project
-      .dropdown-menu(aria-labelledby="navbarDropdown")
-        a.dropdown-item(href="/management/aboutProject") 조회
-        a.dropdown-item(href="/management/addProject") 추가
+      a.btn.btn.btn-outline.ml-md-3.nav-link(href="/manager/searchEmployee")
+        | 직원 검색
     li.nav-item
-      a.nav-link(href="/management/evaluation")
-        | Evaluation
+      a.btn.btn.btn-outline.ml-md-3.nav-link(href="/manager/searchProject")
+        | 프로젝트 검색
+
   ul.navbar-nav
     li.nav-item.active
-      a.nav-link(href="/mypage") My page
-  a.btn.btn.btn-outline-light.ml-md-3(href="/signout") Sign out
+      a.btn.btn.btn-outline.ml-md-3.nav-link(href="/mypage") 마이페이지
+  a.btn.btn.btn-outline.ml-md-3(href="/signout") 로그아웃

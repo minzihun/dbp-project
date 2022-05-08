@@ -1,5 +1,5 @@
 nav.navbar.navbar-expand-lg.navbar-white.bg-light
-  a.navbar-brand.font-weight-bold(href="/") 프람트테크놀로지
+  a.navbar-brand.font-weight-bold(href="/") 프람트솔루션
   button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
@@ -10,7 +10,7 @@ nav.navbar.navbar-expand-lg.navbar-white.bg-light
         block employee
             include ./nav_employee
     else
-        block employee
-            include ./nav_employee
+        block manager
+            include ./nav_manager
     //-   block unauthorized
     //-     include ./unauthorized
