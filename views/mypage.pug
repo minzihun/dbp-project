@@ -1,0 +1,54 @@
+extends layout
+
+//- 마이 페이지
+block content
+  div(name="mypage")
+  section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
+    .container
+      .row.text-left.align-items-center
+        .col-10.col-sm-6.m-auto.m-lg-0.col-lg-4
+          //- if state === 'developer'
+            img.d-block.w-100(src="images/d.png", alt="role")
+          //- else
+            img.d-block.w-100(src="images/m.png", alt="role")
+        .col-10.col-lg-8.pt-4.pt-lg-0
+          h1 홍길동
+            .row.mt-3
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong ID
+                    p.text-h3.ml-3
+                      | monkey
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong Resident Registration Number
+                    p.text-h3.ml-3
+                      | 000000-000000
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong Education
+                    p.text-h3.ml-3
+                      | 명지대학교
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong Job
+                    p.text-h3.ml-3
+                      | 직업
+              //- if state === 'developer'
+              //-   .col-12.col-sm-6.pt-3.pt-sm-0
+              //-     h3
+              //-       strong Join Company Date 
+              //-         p.text-h3.ml-3
+              //-           | #{moment(user.JOIN_COMPANY_DATE).format('YYYY-MM-DD')}
+              //-   .col-12.col-sm-6.pt-3.pt-sm-0
+              //-     h3
+              //-       strong Work Experience
+              //-         p.text-h3.ml-3
+              //-           | #{moment.duration(moment(new Date()).diff(user.JOIN_COMPANY_DATE)).asMonths().toFixed(2)}개월
+              //-   .col-12.col-sm-12.pt-3.pt-sm-0
+              //-     h3
+              //-       strong Skill
+              //-         p.text-h3.ml-3
+              //-           | #{user.SKILL === null ? '' : user.SKILL}
+              //- .col-12.col-sm-12.pt-3.pt-sm-0
+                a.btn.btn-black.btn-empty(href='/editProfile', style='float: right') 수정
