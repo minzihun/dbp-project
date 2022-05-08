@@ -1,6 +1,6 @@
 extends ../layout
 
-//- 직원 관리 페이지(경영진)
+//- 직원 검색 페이지
 block content
   h1.text-center.mt-5 Employee
   //- 직원 검색
@@ -24,13 +24,13 @@ block content
             th(scope="col") 이름
             th(scope="col") 경력
         tbody
-          each d in result
-            tr
-              td
-                .form-check
-                  input#defaultCheck1.form-check-input(type="checkbox" name="for_deleted" value=`${d[0]}`)
-              td
-                a(href=`/management/detail/${d[0]}`)= d[0]
-              td= d[1]
-              td #{moment.duration(moment(new Date()).diff(d[2])).asMonths().toFixed(1)}개월
+          //- each d in result
+          //-   tr
+          //-     td
+          //-       .form-check
+          //-         input#defaultCheck1.form-check-input(type="checkbox" name="for_deleted" value=`${d[0]}`)
+          //-     td
+          //-       a(href=`/management/detail/${d[0]}`)= d[0]
+          //-     td= d[1]
+          //-     td #{moment.duration(moment(new Date()).diff(d[2])).asMonths().toFixed(1)}개월
       button.btn.btn-outline-primary.mr-3.mb-2(type="submit", style="float: right !important") 선택삭제

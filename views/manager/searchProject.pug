@@ -1,6 +1,6 @@
 extends ../layout
 
-//- 프로젝트 관리 페이지
+//- 프로젝트 검색
 block content
   h1.text-center.mt-5 Project
   .row.float-right
@@ -20,12 +20,12 @@ block content
             th(scope="col") 발주처
             th(scope="col") 진행기간
         tbody
-          each value in prj_before
-            tr
-              td
-                a(href=`/management/prj/${value[0]}`)= value[1]
-              td= value[2]
-              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+          //- each value in prj_before
+          //-   tr
+          //-     td
+          //-       a(href=`/management/prj/${value[0]}`)= value[1]
+          //-     td= value[2]
+          //-     td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
     .col-sm-4
       h2.ml-3.mt-5 Projects in progress
       table.table.text-center.ml-3(style="width: 90%;")
@@ -35,12 +35,12 @@ block content
             th(scope="col") 발주처
             th(scope="col") 진행기간
         tbody
-          each value in prj_cur
-            tr
-              td
-                a(href=`/management/prj/${value[0]}`)= value[1]
-              td= value[2]
-              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+          //- each value in prj_cur
+          //-   tr
+          //-     td
+          //-       a(href=`/management/prj/${value[0]}`)= value[1]
+          //-     td= value[2]
+          //-     td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
     .col-sm-4
       h2.mt-5 Upcoming projects
       table.table.text-center(style="width: 90%;")
@@ -50,9 +50,9 @@ block content
             th(scope="col") 발주처
             th(scope="col") 진행기간
         tbody
-          each value in prj_future
-            tr
-              td
-                a(href=`/management/prj/${value[0]}`)= value[1]
-              td= value[2]
-              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+          //- each value in prj_future
+          //-   tr
+          //-     td
+          //-       a(href=`/management/prj/${value[0]}`)= value[1]
+          //-     td= value[2]
+          //-     td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
