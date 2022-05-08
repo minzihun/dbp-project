@@ -10,7 +10,7 @@ nav.navbar.navbar-expand-lg.navbar-white.bg-light
         block employee
             include ./nav_employee
     else
-        block manager
-            include ./nav_manager
+      block unauthorized
+        include ./unauthorized
     //-   block unauthorized
     //-     include ./unauthorized
