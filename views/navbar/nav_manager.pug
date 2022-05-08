@@ -1,0 +1,24 @@
+block manager
+  ul.navbar-nav.mr-auto
+    li.nav-item
+      a.nav-link(href="/management/aboutDeveloper")
+        | Employee
+    li.nav-item.dropdown
+      a#navbarDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+        | Client
+      .dropdown-menu(aria-labelledby="navbarDropdown")
+        a.dropdown-item(href="/management/aboutClient") 조회
+        a.dropdown-item(href="/management/addClient") 추가
+    li.nav-item.dropdown
+      a#navbarDropdown.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
+        | Project
+      .dropdown-menu(aria-labelledby="navbarDropdown")
+        a.dropdown-item(href="/management/aboutProject") 조회
+        a.dropdown-item(href="/management/addProject") 추가
+    li.nav-item
+      a.nav-link(href="/management/evaluation")
+        | Evaluation
+  ul.navbar-nav
+    li.nav-item.active
+      a.nav-link(href="/mypage") My page
+  a.btn.btn.btn-outline-light.ml-md-3(href="/signout") Sign out
