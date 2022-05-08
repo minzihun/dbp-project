@@ -3,8 +3,8 @@ var router = express.Router();
 
 
 // 직원- 프로젝트 관리
-router.get('/myprojects', function(req, res, next) {
-    res.render('employee/myprojects', { title: 'myprojects' });
+router.get('/projectList', function(req, res, next) {
+    res.render('employee/projectList', { title: 'projectList' });
   });
 
 // 직원- 프로젝트 등록
