@@ -1,0 +1,58 @@
+extends ../layout
+
+//- 프로젝트 관리 페이지
+block content
+  h1.text-center.mt-5 Project
+  .row.float-right
+    button.btn.btn-dark.mr-3(type="button" onclick="location.href='addProject'", style="float: left") 추가
+    nav.navbar.navbar-light(style="padding: 0").mr-5
+      form.form-inline(action='/management/showProject', method='post')
+        input.form-control.mr-sm-2(type="text" name="project" placeholder="project name" aria-label="Search")
+        button.btn.btn-outline-secondary.my-2.my-sm-0(type="submit") 검색
+    
+  .row.mt-5.mr-0
+    .col-sm-4
+      h2.ml-5.mt-5 Closed projects
+      table.table.text-center.ml-5(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+        tbody
+          each value in prj_before
+            tr
+              td
+                a(href=`/management/prj/${value[0]}`)= value[1]
+              td= value[2]
+              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+    .col-sm-4
+      h2.ml-3.mt-5 Projects in progress
+      table.table.text-center.ml-3(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+        tbody
+          each value in prj_cur
+            tr
+              td
+                a(href=`/management/prj/${value[0]}`)= value[1]
+              td= value[2]
+              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+    .col-sm-4
+      h2.mt-5 Upcoming projects
+      table.table.text-center(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+        tbody
+          each value in prj_future
+            tr
+              td
+                a(href=`/management/prj/${value[0]}`)= value[1]
+              td= value[2]
+              td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
