@@ -1,0 +1,82 @@
+extends ../layout
+
+block content
+  h1.text-center.mt-5 프로젝트
+  .row.mr-0
+    .col-sm-12
+      h2.ml-5.mt-5 과거 프로젝트
+      table.table.text-center.ml-5(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+            th(scope="col") 직무
+            th(scope="col") 투입일
+            th(scope="col") 방출일
+            th(scope="col") 경험한 기술
+        tbody
+          //- each value in prj_before
+          //-   tr
+          //-     td= value[0]
+          //-     td= value[1]
+          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
+          //-     td= value[4]
+          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
+          //-     if value[6] !== null
+          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
+          //-     else
+          //-       td X
+          //-     td= value[7]
+  .row.mr-0
+    .col-sm-12
+      h2.ml-5.mt-5 현재 프로젝트
+      table.table.text-center.ml-5(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+            th(scope="col") 직무
+            th(scope="col") 투입일
+            th(scope="col") 방출일
+            th(scope="col") 경험한 기술
+        tbody
+          //- each value in prj_cur
+          //-   tr
+          //-     td= value[0]
+          //-     td= value[1]
+          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
+          //-     td= value[4]
+          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
+          //-     if value[6] !== null
+          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
+          //-     else
+          //-       td X
+          //-     td= value[7]
+  .row.mr-0
+    .col-sm-12
+      h2.ml-5.mt-5 진행예정 프로젝트
+      table.table.text-center.ml-5(style="width: 90%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 발주처
+            th(scope="col") 진행기간
+            th(scope="col") 직무
+            th(scope="col") 투입일
+            th(scope="col") 방출일
+            th(scope="col") 경험한 기술
+        tbody
+          //- each value in prj_future
+          //-   tr
+          //-     td= value[0]
+          //-     td= value[1]
+          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
+          //-     td= value[4]
+          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
+          //-     if value[6] !== null
+          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
+          //-     else
+          //-       td X
+          //-     td= value[7]
