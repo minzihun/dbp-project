@@ -7,25 +7,25 @@ block content
   form(action="/signup", method='post')
     .form-group
       label(for="inputID") 아이디
-      input#inputId.form-control(type="id" name="id" placeholder="id" required)
+      input#inputId.form-control(type="id" name="id" placeholder="아이디" required)
     .form-group
       label(for="inputPassword") 패스워드
-      input#inputPassword.form-control(type="password" pattern=".{6,20}" name="password" placeholder="Password" required)
+      input#inputPassword.form-control(type="password" pattern=".{6,20}" name="password" placeholder="비밀번호" required)
     .form-group
       label(for="inputName") 이름
-      input#inputName.form-control(type="name" name="name" placeholder="Name" required)
+      input#inputName.form-control(type="name" name="name" placeholder="이름" required)
     .form-group
       label(for="resident_number") 주민등록번호
-      input#inputAddress.form-control(type="text" name="resident_number" placeholder="111111-1111111"  required)
+      input#inputAddress.form-control(type="text" name="resident_number" placeholder="주민등록번호"  required)
     .form-group
       label(for="final_edu") 최종학력
-      input#inputAddress.form-control(type="text" name="final_edu" placeholder="명지대학교"  required)
+      input#inputAddress.form-control(type="text" name="final_edu" placeholder="최종학력"  required)
     .form-group
       label(for="skill") 기술
-      input#inputAddress.form-control(type="text" name="skill" placeholder="java, python"  required)
+      input#inputAddress.form-control(type="text" name="skill" placeholder="기술"  required)
     .form-group
       label(for="career") 경력
-      input#inputAddress.form-control(type="text" name="career" placeholder="2019~2020 네이버 근무"  required)
+      input#inputAddress.form-control(type="text" name="career" placeholder="경력"  required)
     .form-group
       label(for="dept") 부서
       select.custom-select(name="dept", size="1")
