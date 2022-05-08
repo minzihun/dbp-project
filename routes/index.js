@@ -6,11 +6,11 @@ router.get('/', function(req, res, next) {
 
   // var state = '';
   // if (req.session.user === undefined) {
-  //   state = 'beforeLogin';
-  // } else if (req.session.user.job === 'developer') {
-  //   state = 'developer';
+  //   state = 'unauthorized';
+  // } else if (req.session.user.job === 'employee') {
+  //   state = 'employee';
   // } else {
-  //   state = 'management';
+  //   state = 'manager';
   // }
 
   res.render('index', { title: 'Express' });
@@ -27,6 +27,10 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
+//마이페이지
+router.get('/mypage', function(req, res, next) {
+  res.render('mypage', { title: 'Mypage' });
+});
 
 
 
