@@ -3,6 +3,16 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+
+  // var state = '';
+  // if (req.session.user === undefined) {
+  //   state = 'beforeLogin';
+  // } else if (req.session.user.job === 'developer') {
+  //   state = 'developer';
+  // } else {
+  //   state = 'management';
+  // }
+
   res.render('index', { title: 'Express' });
 });
 
@@ -16,6 +26,8 @@ router.get('/signup', function(req, res, next) {
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
+
+
 
 
 module.exports = router;
