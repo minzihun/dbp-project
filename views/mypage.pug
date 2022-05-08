@@ -6,34 +6,40 @@ block content
   section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
     .container
       .row.text-left.align-items-center
-        .col-10.col-sm-6.m-auto.m-lg-0.col-lg-4
-          //- if state === 'developer'
-            img.d-block.w-100(src="images/d.png", alt="role")
-          //- else
-            img.d-block.w-100(src="images/m.png", alt="role")
         .col-10.col-lg-8.pt-4.pt-lg-0
-          h1 홍길동
             .row.mt-3
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
-                  strong ID
+                  strong 아이디
                     p.text-h3.ml-3
                       | monkey
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
-                  strong Resident Registration Number
+                  strong 이름
                     p.text-h3.ml-3
-                      | 000000-000000
+                      | 홍길동
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
-                  strong Education
+                  strong 최종학력
                     p.text-h3.ml-3
                       | 명지대학교
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
-                  strong Job
+                  strong 기술
                     p.text-h3.ml-3
-                      | 직업
+                      | "java"
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 경력
+                    p.text-h3.ml-3
+                      | "2019~2020 네이버 근무"
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 부서
+                    p.text-h3.ml-3
+                      | 개발1팀
+            
+            a.btn.btn-black.btn-empty(href='/updateMyInfo', style='float: right') 수정
               //- if state === 'developer'
               //-   .col-12.col-sm-6.pt-3.pt-sm-0
               //-     h3
@@ -51,4 +57,3 @@ block content
               //-         p.text-h3.ml-3
               //-           | #{user.SKILL === null ? '' : user.SKILL}
               //- .col-12.col-sm-12.pt-3.pt-sm-0
-                a.btn.btn-black.btn-empty(href='/editProfile', style='float: right') 수정

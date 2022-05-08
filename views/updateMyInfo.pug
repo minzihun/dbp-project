@@ -1,0 +1,57 @@
+extends layout
+
+//- 마이 페이지 수정
+block content
+    form(action='/updateMyInfo?_method=PUT', method="POST")
+        div(name="mypage")
+        section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
+            .container
+            .row.text-left.align-items-center
+                .col-10.col-lg-8.pt-4.pt-lg-0
+                    .row.mt-3
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                        strong 아이디
+                            input.form-control.text-h3.ml-3(type="text", name="id" value="monkey")
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                        strong 이름
+                            input.form-control.text-h3.ml-3(type="text", name="name" value="홍길동")
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                        strong 최종학력
+                            input.form-control.text-h3.ml-3(type="text", name="fianl_edu" value="명지대학교")
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                        strong 기술
+                            input.form-control.text-h3.ml-3(type="text", name="skill" value="~~~~~~~~")
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                        strong 경력
+                            input.form-control.text-h3.ml-3(type="text", name="career" value="~~~~")
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
+                            strong 부서
+                                select.custom-select(name="dept", size="1")
+                                    option(value='개발 1팀') 개발 1팀
+                                    option(value='개발 2팀') 개발 2팀
+                                    option(value='개발 3팀') 개발 3팀
+                    
+                    button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
+                        //- if state === 'developer'
+                        //-   .col-12.col-sm-6.pt-3.pt-sm-0
+                        //-     h3
+                        //-       strong Join Company Date 
+                        //-         p.text-h3.ml-3
+                        //-           | #{moment(user.JOIN_COMPANY_DATE).format('YYYY-MM-DD')}
+                        //-   .col-12.col-sm-6.pt-3.pt-sm-0
+                        //-     h3
+                        //-       strong Work Experience
+                        //-         p.text-h3.ml-3
+                        //-           | #{moment.duration(moment(new Date()).diff(user.JOIN_COMPANY_DATE)).asMonths().toFixed(2)}개월
+                        //-   .col-12.col-sm-12.pt-3.pt-sm-0
+                        //-     h3
+                        //-       strong Skill
+                        //-         p.text-h3.ml-3
+                        //-           | #{user.SKILL === null ? '' : user.SKILL}
+                        //- .col-12.col-sm-12.pt-3.pt-sm-0
