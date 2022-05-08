@@ -2,25 +2,29 @@ extends ../layout
 
 //- 프로젝트 등록 페이지
 block content
-  form(action="/management/addProject", method="post")
+  form(action="/employee/createProject", method="post")
     h1.text-center.mt-5 프로젝트 등록
     .form-group
       .row.align-items-center
         .col.mt-4
-          h2 프로젝트 이름
-          input.form-control(type="text", placeholder="project name", name="name")
+          h2 프로젝트명
+          input.form-control(type="text", placeholder="프로젝트명", name="name")
       .row.align-items-center.mt-4
         .col
-          h2 Start Date
-          input.form-control(type="date", placeholder="starts", name="begin_date")
+          h2 프로젝트착수일자
+          input.form-control(type="date", name="start_date")
       .row.align-items-center.mt-4
         .col
-          h2 End Date
-          input.form-control(type="date", placeholder="ends", name="end_date")
+          h2 프로젝트종료일자
+          input.form-control(type="date", name="end_date")
       .row.align-items-center.mt-4
         .col
-          h2 Ordered
-          select.custom-select(name="client", size="1")
+          h2 발주처
+          input.form-control(type="text", placeholder="명지대 전산팀", name="organization")
+      .row.align-items-center.mt-4
+        .col
+          h2 예산
+          input.form-control(type="text", placeholder="100,000,000", name="budget")
             
       .row.justify-content-start.mt-4
         .col(style="margin-bottom: 1em")
