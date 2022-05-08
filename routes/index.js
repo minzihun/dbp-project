@@ -32,6 +32,10 @@ router.get('/mypage', function(req, res, next) {
   res.render('mypage', { title: 'Mypage' });
 });
 
+// 마이페이지 수정
+router.get('/updateMyInfo', (req, res, next) => {
+  res.render('updateMyInfo', { title: 'Mypage' });
+});
 
 
 module.exports = router;
