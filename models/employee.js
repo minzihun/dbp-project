@@ -30,7 +30,7 @@ module.exports = class Employee extends Sequelize.Model{
                 unique:true
             },
             emp_PW:{
-                type:Sequelize.STRING(45),
+                type:Sequelize.STRING(255),
                 allowNull:false,
             }
         },{
