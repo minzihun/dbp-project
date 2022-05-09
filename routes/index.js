@@ -4,15 +4,6 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  // var state = '';
-  // if (req.session.user === undefined) {
-  //   state = 'unauthorized';
-  // } else if (req.session.user.job === 'employee') {
-  //   state = 'employee';
-  // } else {
-  //   state = 'manager';
-  // }
-
   res.render('index', { title: 'Express' });
 });
 
@@ -20,6 +11,10 @@ router.get('/', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'Signup' });
 });
+
+router.post('/signup', (req, res)=>{
+  
+})
 
 
 //로그인
