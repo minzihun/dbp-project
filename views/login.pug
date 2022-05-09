@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  section.fdb-block
+    .container
+      .row.justify-content-center
+        .col-12.col-md-8.col-lg-7.col-xl-5.text-center
+          .fdb-box.fdb-touch
+            form(action='/', method='POST')
+              .row
+                .col
+                  h1 로그인
+              .row.mt-4
+                .col
+                  input.form-control(type="id", name="id", placeholder="아이디", required, autofocus)
+              .row.mt-4
+                .col
+                  input.form-control.mb-1(type="password", name="password", placeholder="패스워드", required, autofocus)
+              .row.mt-4
+                .col
+                  button.btn.btn-black.btn-empty(type="submit") 로그인
