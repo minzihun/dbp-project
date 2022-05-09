@@ -23,3 +23,16 @@ exports.isNotLoggedIn = (req,res,next) => {
 
     }
 }
+
+// //관리자확인
+exports.isAdmin = (req,res,next)=>{
+    if(req.user.isAdmin){
+        next();
+    }else{
+        res.send(`<script type="text/javascript">window.location="/";alert('관리자가 아닙니다.!!-middleware');</script>`);
+
+    }
+}
+
+
+

@@ -3,6 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  // console.log('======================================================')
+  // console.log(req.user);
   res.render('index', { title: 'Express' });
 });
 
@@ -31,5 +33,11 @@ router.get('/updateMyInfo', (req, res, next) => {
   res.render('updateMyInfo', { title: 'Mypage' });
 });
 
+
+//관리 미들웨어 확인용(지울 것)
+const {isAdmin} = require('./middlewares');
+router.get('/isadmin', isAdmin, (req,res,next)=>{
+  res.send(req.user);
+})
 
 module.exports = router;

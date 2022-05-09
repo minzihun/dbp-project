@@ -58,7 +58,9 @@ router.get('/signup',isNotLoggedIn,async function(req, res, next) {
   
   //로그인
 router.post('/login', isNotLoggedIn, (req,res,next)=>{
-    passport.authenticate('local',(authError, user, info)=>{
+    passport.authenticate('employeeLocal',(authError, user, info)=>{
+        console.log('////////////////////////////////////////////////////')
+        console.log(user);
         if(authError){
             console.error(authError);
             return next(authError);
@@ -74,6 +76,18 @@ router.post('/login', isNotLoggedIn, (req,res,next)=>{
             return res.redirect('/');
         })
     })(req,res,next);
+
+    // passport.authenticate('managerLocal',(authError, user, info)=>{
+    //     console.log('****************************************')
+    //     console.log(user);
+    //     if(authError){
+    //         console.error(authError)
+    //         return next(authError);
+    //     }
+    //     return req.logIn(user,(loginError)=>{
+    //         if
+    //     })
+    // })
 })
 
 router.get('/login',isNotLoggedIn, function(req, res, next) {
