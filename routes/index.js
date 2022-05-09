@@ -6,20 +6,20 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// 회원가입
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'Signup' });
-});
+// // 회원가입
+// router.get('/signup', function(req, res, next) {
+//   res.render('signup', { title: 'Signup' });
+// });
 
-router.post('/signup', (req, res)=>{
+// router.post('/signup', (req, res)=>{
   
-})
+// })
 
 
-//로그인
-router.get('/login', function(req, res, next) {
-  res.render('login', { title: 'Login' });
-});
+// //로그인
+// router.get('/login', function(req, res, next) {
+//   res.render('login', { title: 'Login' });
+// });
 
 //마이페이지
 router.get('/mypage', function(req, res, next) {

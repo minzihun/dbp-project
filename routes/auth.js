@@ -47,6 +47,14 @@ router.post('/signup',isNotLoggedIn,async function(req, res, next) {
     }
     
 });
+router.get('/signup',isNotLoggedIn,async function(req, res, next) {
+    try{
+         res.render('signup', { title: 'Signup' });
+
+    }catch(error){
+        console.error(error);
+    }
+})
   
   //로그인
 router.post('/login', isNotLoggedIn, (req,res,next)=>{
@@ -68,7 +76,14 @@ router.post('/login', isNotLoggedIn, (req,res,next)=>{
     })(req,res,next);
 })
 
+router.get('/login',isNotLoggedIn, function(req, res, next) {
+    try{
+        res.render('login', { title: 'Login' });
 
+    }catch(error){
+        console.error(error);
+    }
+  });
 //로그아웃
 router.post('/logout', isLoggedIn, (req,res)=>{
     req.logout();
