@@ -6,14 +6,30 @@ const Employee = require('../models/employee');
 var router = express.Router();
 
 // 회원가입
-router.post('/signin',isNotLoggedIn,async function(req, res, next) {
+router.post('/signup',isNotLoggedIn,async function(req, res, next) {
     const {id, password, name, resident_number, final_edu, skill, career, dept} = req.body;
+    let Dept_id;
+    switch(dept){
+        case '개발 1팀': 
+            Dept_id = 1;
+            break;
+        case '개발 2팀':
+            Dept_id = 2;
+            break;
+        case '개발 3팀':
+            Dept_id = 3;
+            break;
+        default:
+            Dept_id = 1;
+            break;
+    }
     try{
         const exEmp = await Employee.findOne({where:{id}});
         if(exEmp){
             return res.redirect('/join?error=exist');
         }
         const hash = await bcrypt.hash(password, 12);
+        console.log({id, hash, name, resident_number, final_edu, skill, career})
         await Employee.create({
             emp_ID:id, 
             emp_PW:hash,
@@ -22,7 +38,7 @@ router.post('/signin',isNotLoggedIn,async function(req, res, next) {
             emp_final_edu:final_edu,
             skill,
             career,
-            Dept_id:dept
+            Dept_id
         });
         return res.redirect('/');
     }catch(err){
@@ -54,7 +70,7 @@ router.post('/login', isNotLoggedIn, (req,res,next)=>{
 
 
 //로그아웃
-router.get('/mypage', isLoggedIn, (req,res)=>{
+router.post('/logout', isLoggedIn, (req,res)=>{
     req.logout();
     req.session.destroy();
     res.redirect('/');

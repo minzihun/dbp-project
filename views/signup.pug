@@ -4,7 +4,7 @@ extends layout
 
 block content
   h1.main 회원가입
-  form(action="/signup", method='post')
+  form(action="/auth/signup", method='post')
     .form-group
       label(for="inputID") 아이디
       input#inputId.form-control(type="id" name="id" placeholder="아이디" required)
