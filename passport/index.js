@@ -1,5 +1,5 @@
 const passport = require('passport');
-const local = require('./localStrategy'); //만들것(나중에 delete)
+const local = require('./localStrategy');
 const Employee = require('../models/employee');
 
 module.exports = () =>{

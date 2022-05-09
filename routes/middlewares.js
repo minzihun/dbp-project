@@ -16,14 +16,10 @@ exports.isNotLoggedIn = (req,res,next) => {
         next();
     }else{
         const message = encodeURIComponent('로그인한 상태입니다.');
-        // res.redirect(`/?error=${message}`);
-        // res.send(`<script type="text/javascript">document.location.herf="/";</script>`)
-
-        // res.redirect(`/?error=${message}`,`<script type="text/javascript"> alert("${message}")</script>`);
         res.send(`<script type="text/javascript">window.location="/";alert('로그인한 상태입니다.');</script>`);
+        
+        // res.redirect(`/?error=${message}`);
         // res.redirect('/');
-
-        // res.send(`<script type="text/javascript"> alert("${message}")</script>`)
 
     }
 }
