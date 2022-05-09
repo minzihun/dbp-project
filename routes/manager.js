@@ -8,8 +8,8 @@ router.get('/searchEmployee', function(req, res, next) {
   });
 
 // 경영진 - 프로젝트검색
-router.get('/searchProject', function(req, res, next) {
-    res.render('manager/searchProject', { title: 'searchProject' });
+router.get('/manageProject', function(req, res, next) {
+    res.render('manager/manageProject', { title: 'manageProject' });
   });
   
 
