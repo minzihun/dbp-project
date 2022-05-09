@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 module.exports = class Employee extends Sequelize.Model{
     static init(sequelize){
@@ -20,13 +20,14 @@ module.exports = class Employee extends Sequelize.Model{
                 type:Sequelize.STRING(255),
                 allowNull:false
             },
-            carrer:{
+            career:{
                 type:Sequelize.STRING(255),
                 allowNull:false,
             },
             emp_ID:{
                 type:Sequelize.STRING(45),
                 allowNull:false,
+                unique:true
             },
             emp_PW:{
                 type:Sequelize.STRING(45),
@@ -34,19 +35,19 @@ module.exports = class Employee extends Sequelize.Model{
             }
         },{
             sequelize,
-            timestamps:true,
+            timestamps:false,
             underscored:false,
             modelName:'Employee',
-            tableName:'employee',
+            tableName:'Employee',
             paranoid:false,
-            charset:UTF8,
+            charset:'utf8',
             collate:'utf8_general_ci'
         })
     }
     static associate(db){
         db.Employee.belongsTo(db.Employee, {foreignKey:'Dept_id', targetKey:'id'});
-        db.Employee.hasOne(db.Manager, {foreignKey:'Employee_number',sourceKey:'id'});
-        db.Employee.belongsTo(db.Emp_Proj, {foreignKey:'Employee_number',sourceKey:'id'})
+        // db.Employee.hasOne(db.Manager, {foreignKey:'Employee_number',sourceKey:'id'});
+        // db.Employee.belongsTo(db.Emp_Proj, {foreignKey:'Employee_number',sourceKey:'id'})
         
     }
 }

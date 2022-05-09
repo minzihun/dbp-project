@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 module.exports = class Manager extends Sequelize.Model{
     static init(sequelize){
@@ -9,12 +9,12 @@ module.exports = class Manager extends Sequelize.Model{
             }
         },{
             sequelize,
-            timestamps:true,
+            timestamps:false,
             underscored:false,
             modelName:'Manager',
-            tableName:'manager',
+            tableName:'Manager',
             paranoid:false,
-            charset:UTF8,
+            charset:'utf8',
             collate:'utf8_general_ci'
         })
     }

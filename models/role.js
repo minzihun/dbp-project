@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 module.exports = class Role extends Sequelize.Model{
     static init(sequelize){
@@ -9,17 +9,17 @@ module.exports = class Role extends Sequelize.Model{
             }
         },{
             sequelize,
-            timestamps:true,
+            timestamps:false,
             underscored:false,
             modelName:'Role',
-            tableName:'roles',
+            tableName:'Roles',
             paranoid:false,
-            charset:UTF8,
+            charset:'utf8',
             collate:'utf8_general_ci'
         })
     }
     static associate(db){
-        db.Role.belongsTo(db.Emp_Proj, {foreignKey:'Role_id',sourceKey:'id'})
+        // db.Role.belongsTo(db.Emp_Proj, {foreignKey:'Role_id',sourceKey:'id'})
 
         
     }

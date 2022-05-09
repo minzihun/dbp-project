@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 module.exports = class Emp_Proj extends Sequelize.Model{
     static init(sequelize){
@@ -13,12 +13,12 @@ module.exports = class Emp_Proj extends Sequelize.Model{
             },
         },{
             sequelize,
-            timestamps:true,
+            timestamps:false,
             underscored:false,
-            modelName:'Dept',
-            tableName:'dept',
+            modelName:'Emp_Proj',
+            tableName:'Emp_Proj',
             paranoid:false,
-            charset:UTF8,
+            charset:'utf8',
             collate:'utf8_general_ci'
         })
     }

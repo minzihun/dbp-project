@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const {Sequelize} = require('sequelize');
 
 module.exports = class Dept extends Sequelize.Model{
     static init(sequelize){
@@ -9,16 +9,16 @@ module.exports = class Dept extends Sequelize.Model{
             }
         },{
             sequelize,
-            timestamps:true,
+            timestamps:false,
             underscored:false,
             modelName:'Dept',
-            tableName:'dept',
+            tableName:'Dept',
             paranoid:false,
-            charset:UTF8,
+            charset:'utf8',
             collate:'utf8_general_ci'
         })
     }
     static associate(db){
-        db.Dept.hasMany(db.Employee, {foreignKey:'Dept_id', sourceKey:'id'})
+        // db.Dept.hasMany(db.Employee, {foreignKey:'Dept_id', sourceKey:'id'})
     }
 }
