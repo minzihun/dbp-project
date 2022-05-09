@@ -13,8 +13,6 @@ const path = require('path');
 
 var port = process.env.PORT || '3000';
 app.set('port', port);
-app.set('views', './views')
-app.set('view engine','pug')
 
 app.listen(3000, ()=>{
   console.log(`localhost:${port}에서 listen...`)
