@@ -4,16 +4,20 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const dotenv = require('dotenv');
 const session = require('express-session');
+const passport = require('passport');
+
+dotenv.config();
 
 var indexRouter = require('./routes/index');
 var employeeRouter = require('./routes/employee');
 var managerRouter = require('./routes/manager');
+const authRouter = require('./routes/auth');
 const { sequelize } = require('./models');
+const passportConfig = require('./passport');
 
-dotenv.config();
 
 var app = express();
-
+passportConfig(); //패스포트 설정
 
 app.set('views', './views')
 app.set('view engine','pug')
@@ -39,9 +43,13 @@ app.use(session({
         secure:false
     }
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
 //- Router
 app.use('/', indexRouter);
 app.use('/employee', employeeRouter);
 app.use('/manager', managerRouter);
+app.use('/auth',authRouter);
 
 module.exports = app;
