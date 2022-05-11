@@ -5,7 +5,6 @@ const Manager = require('../models/manager');
 
 module.exports = () =>{
     passport.serializeUser((user, done)=>{
-        console.log('++++++++++++++++++++passport serializeUser call');
         done(null, user.id)
     });
     passport.deserializeUser((id, done)=>{
