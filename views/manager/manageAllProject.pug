@@ -1,0 +1,50 @@
+extends ../layout
+
+//- 프로젝트 검색
+block content
+  h1.text-center.mt-5 모든 프로젝트
+  .row.mr-0
+    nav.navbar.navbar-light()
+      form.form-inline(action='/management/searchProject', method='post')
+        .row.align-items-center.mr-0
+          .col
+            h2.text-center.mt-5 프로젝트착수일자
+            input.form-control(type="date", name="start_date")
+        .row.align-items-center.mr-0
+          .col
+            h2.text-center.mt-5 프로젝트종료일자
+            input.form-control(type="date", name="end_date")
+          button.btn.btn-outline-secondary.my-2.my-sm-0.mr-auto(type="submit") 검색
+
+  .row.mr-0
+    .col-sm-12
+      table.table.text-center.ml-5(style="width: 100%;")
+        thead.thead-light
+          tr
+            th(scope="col") 프로젝트명
+            th(scope="col") 프로젝트 진행기간
+            th(scope="col") 프로젝트 참가기간
+            th(scope="col") 발주처
+            th(scope="col") 예산
+            th(scope="col") 직무(역할)
+            th(scope="col") 참가여부
+        tbody
+          //- each value in prj_before
+          //-   tr
+          //-     td= value[0]
+          //-     td= value[1]
+          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
+          //-     td= value[4]
+          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
+          //-     if value[6] !== null
+          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
+          //-     else
+          //-       td X
+          //-     td= value[7]
+
+          //- each value in prj_before
+          //-   tr
+          //-     td
+          //-       a(href=`/management/prj/${value[0]}`)= value[1]
+          //-     td= value[2]
+          //-     td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
