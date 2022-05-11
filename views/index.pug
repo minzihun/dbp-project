@@ -1,16 +1,12 @@
 extends layout
 
 block content
-  .card
-    img.card-img(src="https://cdn.pixabay.com/photo/2015/01/09/11/08/startup-594090_960_720.jpg" alt="mainimage")
-    .carousel-caption
-      b.main 프람트솔루션
-  .end 
-    p 2022년 1학기 데이터베이스프로젝트 2조
-
-//- doctype html
-//- html 
-//-     head
-//-         title = title
-//-         link(rel='stylesheet', href='/stylesheets/style.css')
-//-         h1= title
+    if state == 'manager'
+        block projectList
+            include ./projectList
+    else if state == 'employee'
+        block projectList
+            include ./projectList
+    else
+        block content
+            include ./pic_view
