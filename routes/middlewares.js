@@ -15,7 +15,7 @@ exports.isNotLoggedIn = (req,res,next) => {
     if(!req.isAuthenticated()){
         next();
     }else{
-        const message = encodeURIComponent('로그인한 상태입니다.');
+        // const message = encodeURIComponent('로그인한 상태입니다.');
         res.send(`<script type="text/javascript">window.location="/";alert('로그인한 상태입니다.');</script>`);
         
         // res.redirect(`/?error=${message}`);
@@ -29,8 +29,8 @@ exports.isAdmin = (req,res,next)=>{
     if(req.user.isAdmin){
         next();
     }else{
-        res.send(`<script type="text/javascript">window.location="/";alert('관리자가 아닙니다.!!-middleware');</script>`);
-
+        res.send(`<script type="text/javascript">window.location="/";alert('관리자가 아닙니다.');</script>`);
+        
     }
 }
 

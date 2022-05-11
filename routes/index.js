@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const Employee = require('../models/employee');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -39,5 +41,16 @@ const {isAdmin} = require('./middlewares');
 router.get('/isadmin', isAdmin, (req,res,next)=>{
   res.send(req.user);
 })
+
+//데이터 확인용(지울 것)
+const {Dept} = require('../models');
+const {Emp_Proj} = require('../models');
+const {Manager} = require('../models');
+const {Project} = require('../models');
+const {Role} = require('../models');
+// router.get('/all', (req,res,next)=>{
+//   res.
+// })
+
 
 module.exports = router;

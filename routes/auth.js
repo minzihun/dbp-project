@@ -25,7 +25,7 @@ router.post('/signup',isNotLoggedIn,async function(req, res, next) {
     }
     try{
         const exEmp = await Employee.findOne({where:{id}});
-        if(exEmp){
+        if(!exEmp){
             return res.redirect('/join?error=exist');
         }
         const hash = await bcrypt.hash(password, 12);
@@ -59,7 +59,7 @@ router.get('/signup',isNotLoggedIn,async function(req, res, next) {
   //로그인
 router.post('/login', isNotLoggedIn, (req,res,next)=>{
     passport.authenticate('employeeLocal',(authError, user, info)=>{
-        console.log('////////////////////////////////////////////////////')
+        // console.log('////////////////////////////////////////////////////')
         console.log(user);
         if(authError){
             console.error(authError);

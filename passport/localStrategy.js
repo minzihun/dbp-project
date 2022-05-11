@@ -12,8 +12,8 @@ module.exports = ()=>{
     }, async(id, password, done)=>{
         try{
             const exEmp = await Employee.findOne({where: {emp_ID:id}});
-            const admin = await Manager.findOne({where:{Employee_number:exEmp.id}});
             if(exEmp){
+                const admin = await Manager.findOne({where:{Employee_number:exEmp.id}});
                 const result = await bcrypt.compare(password, exEmp.emp_PW);
                 if(result){
                     if(admin){
