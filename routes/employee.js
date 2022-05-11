@@ -11,5 +11,9 @@ router.get('/createProject', function(req, res, next) {
     res.render('employee/createProject', { title: 'createProject' });
   });
 
+ // PM - 프로젝트 상세
+router.get('/pm/project/1', function(req, res, next) {
+  res.render('pm/pmProjectDetail', { title: 'pmProjectDetail' });
+});
 
 module.exports = router;
