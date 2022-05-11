@@ -12,7 +12,7 @@ module.exports = class Role extends Sequelize.Model{
             timestamps:false,
             underscored:false,
             modelName:'Role',
-            tableName:'Roles',
+            // tableName:'Roles',
             paranoid:false,
             charset:'utf8',
             collate:'utf8_general_ci'
