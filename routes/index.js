@@ -5,9 +5,21 @@ const Employee = require('../models/employee');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // console.log('======================================================')
+  console.log('======================================================')
   // console.log(req.user);
-  res.render('index', { title: 'Express' });
+  var state = '';
+  if(!(req.user)){
+    state = 'beforeLogin'
+  }else{
+    var {isAdmin} = req.user;
+    if(isAdmin){
+      state = 'management';
+    }else{
+      state = 'developer';
+    }
+  }
+  console.log(state);
+  res.render('index', { title: 'Express', state });
 });
 
 // // 회원가입
@@ -27,12 +39,12 @@ router.get('/', function(req, res, next) {
 
 //마이페이지
 router.get('/mypage', function(req, res, next) {
-  res.render('mypage', { title: 'Mypage' });
+  res.render('mypage', { title: 'Mypage' ,state});
 });
 
 // 마이페이지 수정
 router.get('/updateMyInfo', (req, res, next) => {
-  res.render('updateMyInfo', { title: 'Mypage' });
+  res.render('updateMyInfo', { title: 'Mypage',state });
 });
 
 
@@ -48,9 +60,5 @@ const {Emp_Proj} = require('../models');
 const {Manager} = require('../models');
 const {Project} = require('../models');
 const {Role} = require('../models');
-// router.get('/all', (req,res,next)=>{
-//   res.
-// })
-
 
 module.exports = router;

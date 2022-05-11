@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 // 경영진 - 직원검색
-router.get('/searchEmployee', function(req, res, next) {
+router.get('/searchEmployee',function(req, res, next) {
     res.render('manager/searchEmployee', { title: 'searchEmployee' });
   });
 
