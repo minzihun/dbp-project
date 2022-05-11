@@ -1,11 +1,8 @@
 block employee
   ul.navbar-nav.mr-auto
-    li.nav-item.dropdown
-      a#navbarDropdown.a.btn.btn.btn-outline.ml-md-3.nav-link.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false")
-        | 프로젝트
-      .dropdown-menu(aria-labelledby="navbarDropdown")
-        a.dropdown-item(href="/employee/projectList") 관리
-        a.dropdown-item(href="/employee/createProject") 등록
+    li.nav-item
+      a.btn.btn.btn-outline.ml-md-3.nav-link(href="/employee/createProject")
+        | 프로젝트 등록
   ul.navbar-nav
     li.nav-item.active
       a.btn.btn.btn-outline.ml-md-3.nav-link(href="/mypage") 마이페이지

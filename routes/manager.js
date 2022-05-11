@@ -8,9 +8,13 @@ router.get('/searchEmployee',function(req, res, next) {
   });
 
 // 경영진 - 프로젝트검색
-router.get('/manageProject', function(req, res, next) {
-    res.render('manager/manageProject', { title: 'manageProject' });
+router.get('/manageAllProject', function(req, res, next) {
+    res.render('manager/manageAllProject', { title: 'manageAllProject' });
   });
   
+// 프로젝트 상세 페이지로 이동
+router.get('/project/1', function(req, res, next) {
+    res.render('manager/projectDetail', { title: 'projectDetail' });
+  });
 
 module.exports = router;
