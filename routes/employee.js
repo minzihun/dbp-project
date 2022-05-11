@@ -16,4 +16,9 @@ router.get('/pm/project/1', function(req, res, next) {
   res.render('pm/pmProjectDetail', { title: 'pmProjectDetail' });
 });
 
+ // PM - 프로젝트 업데이트
+router.get('/pm/project/1/update', function(req,res,next){
+  res.render('pm/updatePmProjectDetail',{title:'updatePmProjectDetail'})
+})
+
 module.exports = router;
