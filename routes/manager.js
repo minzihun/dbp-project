@@ -17,4 +17,9 @@ router.get('/project/1', function(req, res, next) {
     res.render('manager/manProjectDetail', { title: 'manProjectDetail' });
   });
 
+// 경영진 - 프로젝트 수정
+ router.get('/project/1/update', function(req,res,next){
+  res.render('manager/updateManProjectDetail',{title:'updateManProjectDetail'})
+})
+
 module.exports = router;
