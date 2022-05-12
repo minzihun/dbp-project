@@ -36,13 +36,13 @@ router.get("/", function (req, res, next) {
 // });
 
 //마이페이지
-router.get("/mypage", function (req, res, next) {
+router.get("/mypage", isLoggedIn, function (req, res, next) {
   console.log(state);
   res.render("mypage", { title: "Mypage", state });
 });
 
 // 마이페이지 수정 렌더
-router.get("/updateMyInfo", (req, res, next) => {
+router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   res.render("updateMyInfo", { title: "Mypage", state });
 });
 
