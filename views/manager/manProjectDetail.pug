@@ -1,0 +1,62 @@
+extends ../layout
+
+//- 경영진 프로젝트 상세페이지
+block content
+  div.mr-3.ml-3
+    h1.text-center.mt-5 프로젝트 상세
+    section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
+      .container
+        .row.text-left.align-items-center
+          .col-10.col-lg-8.pt-4.pt-lg-0
+            .row.mt-3
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 프로젝트명
+                    p.text-h3.ml-3
+                      | 딥러닝분석프로젝트
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 프로젝트 착수일자
+                    p.text-h3.ml-3
+                      | 20220511
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 프로젝트 종료일자
+                    p.text-h3.ml-3
+                      | 20220522
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 발주처
+                    p.text-h3.ml-3
+                      | "명지대 전산팀"
+              .col-12.col-sm-6.pt-3.pt-sm-0
+                h3
+                  strong 예산
+                    p.text-h3.ml-3
+                      | 1,000,000
+      a.btn.btn-black.btn-empty(href='/manager/project/1/update', style='float: right') 수정
+      .row.mt-4
+      h2.ml-3.mt-5 참여 직원
+      .row.align-items-center.mt-2
+        .col
+          table.table.text-center
+            thead.thead-light
+              tr 
+                th(scope="col") 이름
+                th(scope="col") 직무
+                th(scope="col") 프로젝트 참여일
+                th(scope="col") 프로젝트 종료일
+            tbody
+              //- each value in pi
+              //-   tr
+              //-     td
+              //-       a(href=`/management/detail/`)
+              //-     td=value[2]
+              //-     td=moment(value[3]).format('YYYY-MM-DD')
+              //-     if value[4] === null
+              //-       td(style="float: center")
+              //-         button.btn.btn-outline-dark(type="button" onclick=`location.href='/management/outToPrj/${pNum}/${value[0]}/'`) 방출하기
+              //-     else
+              //-       td=moment(value[4]).format('YYYY-MM-DD')
+              //-     td=value[5]
+                //- TODO: 평가 관련 정보
