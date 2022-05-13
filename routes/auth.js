@@ -25,7 +25,7 @@ router.post('/signup',isNotLoggedIn,async function(req, res, next) {
     }
     try{
         const exEmp = await Employee.findOne({where:{id}});
-        if(!exEmp){
+        if(exEmp){
             return res.redirect('/join?error=exist');
         }
         const hash = await bcrypt.hash(password, 12);
