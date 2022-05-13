@@ -3,14 +3,12 @@ nav.navbar.navbar-expand-lg.navbar-white.bg-light
   button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
-    if state == 'management'
+    if state == 'manager'
         block manager
             include ./nav_manager
-    else if state == 'developer'
+    else if state == 'employee'
         block employee
             include ./nav_employee
     else
-      block unauthorized
-        include ./unauthorized
-    //-   block unauthorized
-    //-     include ./unauthorized
+        block unauthorized
+          include ./unauthorized
