@@ -13,23 +13,23 @@ block content
                         h3
                         strong 아이디
                             p.text-h3.ml-3
-                                |     monkey
+                                #{current_user.id}
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
                         strong 이름
-                            input.form-control.text-h3.ml-3(type="text", name="name" value="홍길동")
+                            input.form-control.text-h3.ml-3(type="text", name="name" value=`${current_user.emp_name}`)
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
                         strong 최종학력
-                            input.form-control.text-h3.ml-3(type="text", name="fianl_edu" value="명지대학교")
+                            input.form-control.text-h3.ml-3(type="text", name="fianl_edu" value=`${current_user.emp_final_edu}`)
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
                         strong 기술
-                            input.form-control.text-h3.ml-3(type="text", name="skill" value="~~~~~~~~")
+                            input.form-control.text-h3.ml-3(type="text", name="skill" value=`${current_user.skill}`)
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
                         strong 경력
-                            input.form-control.text-h3.ml-3(type="text", name="career" value="~~~~")
+                            input.form-control.text-h3.ml-3(type="text", name="career" value=`${current_user.career}`)
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
                             strong 부서

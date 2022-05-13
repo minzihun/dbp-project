@@ -12,32 +12,33 @@ block content
                 h3
                   strong 아이디
                     p.text-h3.ml-3
-                      | monkey
+                      #{current_user.id}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 이름
                     p.text-h3.ml-3
-                      | 홍길동
+                      #{current_user.emp_name}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 최종학력
                     p.text-h3.ml-3
-                      | 명지대학교
+                      #{current_user.emp_final_edu}
+                      
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 기술
                     p.text-h3.ml-3
-                      | "java"
+                      #{current_user.skill}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 경력
                     p.text-h3.ml-3
-                      | "2019~2020 네이버 근무"
+                      #{current_user.career}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 부서
                     p.text-h3.ml-3
-                      | 개발1팀
+                     #{current_user.dept}
             
             a.btn.btn-black.btn-empty(href='/updateMyInfo', style='float: right') 수정
               //- if state === 'developer'

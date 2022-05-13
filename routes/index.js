@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 const Employee = require("../models/employee");
 const { isLoggedIn } = require("./middlewares");
+const { getUser, getDeptId } = require("./user");
+
 var state;
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -38,37 +40,27 @@ router.get("/", function (req, res, next) {
 //마이페이지
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   console.log(state);
-  res.render("mypage", { title: "Mypage", state });
+  const current_user = getUser(req.user);
+  res.render("mypage", { title: "Mypage", state, current_user });
 });
 
 // 마이페이지 수정 렌더
 router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
-  res.render("updateMyInfo", { title: "Mypage", state });
+  const current_user = getUser(req.user);
+  res.render("updateMyInfo", { title: "Mypage", state, current_user });
 });
 
 //마이페이지 수정
 router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   const { name, final_edu, skill, career, dept } = req.body;
-  let Dept_id;
-  switch (dept) {
-    case "개발 1팀":
-      Dept_id = 1;
-      break;
-    case "개발 2팀":
-      Dept_id = 2;
-      break;
-    case "개발 3팀":
-      Dept_id = 3;
-      break;
-    default:
-      Dept_id = 1;
-      break;
-  }
+  const Dept_id = getDeptId(dept);
+  console.log("변화전", req.user);
   try {
-    await Employee.update(
+    const afterEmp = await Employee.update(
       { emp_name: name, emp_final_edu: final_edu, skill, career, Dept_id },
       { where: { id: req.user.id } }
     );
+    console.log("변화후", afterEmp);
   } catch (error) {
     console.error(error);
     next(error);
@@ -77,7 +69,7 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
 
 //관리 미들웨어 확인용(지울 것)
 const { isAdmin } = require("./middlewares");
-router.get("/isadmin", isAdmin, (req, res, next) => {
+router.get("/isadmin", isLoggedIn, isAdmin, (req, res, next) => {
   res.send(req.user);
 });
 

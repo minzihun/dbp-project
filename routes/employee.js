@@ -24,8 +24,6 @@ router.get("/pm/project/1/update", function (req, res, next) {
 router.post("createProject", async (req, res, next) => {
   const { name, start_date, end_date, organization, budget } = req.body;
 
-  // PM - 프로젝트 상세
-
   try {
     //프로젝트 등록부분
     const new_proj = await Project.create({
