@@ -8,6 +8,7 @@ block content
     .form-group
       label(for="inputID") 아이디
       input#inputId.form-control(type="id" name="id" placeholder="아이디" required)
+      button.btn(style='float:right') 중복확인
     .form-group
       label(for="inputPassword") 패스워드
       input#inputPassword.form-control(type="password" pattern=".{6,20}" name="password" placeholder="비밀번호" required)
