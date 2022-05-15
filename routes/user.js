@@ -1,5 +1,5 @@
 exports.getUser = (raw_data) => {
-  const { id, emp_name, emp_final_edu, skill, career, dept_id } = raw_data;
+  const { emp_ID, emp_name, emp_final_edu, skill, career, dept_id } = raw_data;
   let dept;
   switch (dept_id) {
     case 1:
@@ -15,7 +15,7 @@ exports.getUser = (raw_data) => {
       dept = "개발 1팀";
       break;
   }
-  const current_user = { id, emp_name, emp_final_edu, skill, career, dept };
+  const current_user = { emp_ID, emp_name, emp_final_edu, skill, career, dept };
   return current_user;
 };
 exports.getDept = (Dept_id) => {
