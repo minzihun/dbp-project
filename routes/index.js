@@ -7,6 +7,7 @@ const { getUser, getDeptId } = require("./user");
 var state;
 /* GET home page. */
 router.get("/", async function (req, res, next) {
+  console.log(state);
   if (!req.user) {
     state = "beforeLogin";
   } else {
@@ -25,7 +26,10 @@ router.get("/", async function (req, res, next) {
 //마이페이지
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
-  res.render("mypage", { title: "Mypage", state, current_user });
+  console.log(current_user);
+  console.log(current_user.emp_ID);
+  const emp_ID = current_user.emp_ID;
+  res.render("mypage", { title: "Mypage", state, current_user, emp_ID });
 });
 
 // 마이페이지 수정 렌더
