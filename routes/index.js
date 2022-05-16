@@ -3,10 +3,11 @@ var router = express.Router();
 const { Employee, Manager } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
+const { Op } = require("sequelize");
 
 var state;
 /* GET home page. */
-router.get("/", async function (req, res, next) {
+router.get("/", async (req, res, next) => {
   console.log(state);
   if (!req.user) {
     state = "beforeLogin";
@@ -20,10 +21,13 @@ router.get("/", async function (req, res, next) {
       state = "employee";
     }
   }
-  res.render("index", { title: "Express", state });
+  res.render("index", {
+    title: "Express",
+    state,
+  });
 });
 
-//마이페이지
+/* GET mypage */
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
   console.log(current_user);
@@ -32,13 +36,13 @@ router.get("/mypage", isLoggedIn, function (req, res, next) {
   res.render("mypage", { title: "Mypage", state, current_user, emp_ID });
 });
 
-// 마이페이지 수정 렌더
+/* GET mypageupdate */
 router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
   res.render("updateMyInfo", { title: "Mypage", state, current_user });
 });
 
-//마이페이지 수정
+/* POST mypage */
 router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   const { name, final_edu, skill, career, dept } = req.body;
   const Dept_id = getDeptId(dept);
@@ -53,7 +57,7 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   }
 });
 
-//아이디 중복체크
+/* POST checkId */
 router.post("/checkId", async (req, res, next) => {
   const { inputId } = req.body;
   console.log(inputId);
@@ -82,4 +86,45 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
   res.send(req.user);
 });
 
+// /* 참가 프로젝트 리스트 */
+// let participate_proj;
+// router.get("/proj_List", isLoggedIn, async (req, res, next) => {
+//   const participate = await Emp_Proj.findAll({
+//     include: [
+//       {
+//         model: Employee,
+//         attributes: ["id"],
+//         where: { id: req.user.id },
+//       },
+//       {
+//         model: Project,
+//       },
+//       {
+//         model: Role,
+//       },
+//     ],
+//   });
+
+//   participate_proj = participate.map((value) => {
+//     return value.Project.id;
+//   });
+//   console.log(participate);
+//   res.send(participate);
+// });
+// /* 미참가 프로젝트 리스트 */
+// router.get("/non_proj_List", async (req, res, next) => {
+//   const non_participate = await Project.findAll({
+//     where: {
+//       id: { [Op.notIn]: participate_proj },
+//     },
+//   });
+//   console.log(non_participate);
+//   res.send(non_participate);
+// });
+
+/* 참가 */
+router.post("/participate/:prj", async (req, res, next) => {});
+
+/* 참가 중지 */
+router.post("/stop/:prj", async (req, res, next) => {});
 module.exports = router;
