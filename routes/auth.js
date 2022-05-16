@@ -33,23 +33,34 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
       break;
   }
   try {
-    const exEmp = await Employee.findOne({ where: { id } });
+    const exEmp = await Employee.findOne({ where: { emp_ID: id } });
+
     if (exEmp) {
-      return res.redirect("/join?error=exist");
+      console.log("이미 있는 사용자입니다.");
+      return res.redirect("/auth/signup");
+    } else {
+      const hash = await bcrypt.hash(password, 12);
+      console.log({
+        id,
+        hash,
+        name,
+        resident_number,
+        final_edu,
+        skill,
+        career,
+      });
+      await Employee.create({
+        emp_ID: id,
+        emp_PW: hash,
+        emp_name: name,
+        emp_resident_number: resident_number,
+        emp_final_edu: final_edu,
+        skill,
+        career,
+        Dept_id,
+      });
+      return res.redirect("/");
     }
-    const hash = await bcrypt.hash(password, 12);
-    console.log({ id, hash, name, resident_number, final_edu, skill, career });
-    await Employee.create({
-      emp_ID: id,
-      emp_PW: hash,
-      emp_name: name,
-      emp_resident_number: resident_number,
-      emp_final_edu: final_edu,
-      skill,
-      career,
-      Dept_id,
-    });
-    return res.redirect("/");
   } catch (err) {
     console.error(err);
     return next(err);
