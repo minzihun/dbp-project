@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
+/*
 // 경영진 - 직원검색
 // 직원 id나 이름 받아오고 /searchEmplyee/:name(id나 이름) 페이지로 redirect 해준다.
 router.post('/searchEmployee',function(req, res, next) {
@@ -20,6 +20,7 @@ router.get('/searchEmployee','/searchEmployee/:name',function(req, res, next) {
 
       }
   });
+*/
 
 // 경영진 - 프로젝트검색
 router.get('/manageAllProject', function(req, res, next) {
