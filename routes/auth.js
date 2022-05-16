@@ -37,7 +37,9 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
 
     if (exEmp) {
       console.log("이미 있는 사용자입니다.");
-      return res.redirect("/auth/signup");
+      return res.send(
+        `<script type="text/javascript">window.location="/auth/signup";alert('이미 있는 사용자입니다.');</script>`
+      );
     } else {
       const hash = await bcrypt.hash(password, 12);
       console.log({

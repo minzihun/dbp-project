@@ -61,7 +61,7 @@ router.post("/checkId", async (req, res, next) => {
     const exEmp = await Employee.findOne({ where: { emp_ID: inputId } });
 
     if (exEmp) {
-      return res.send("이미 있는 사용자입니다.");
+      return res.send("사용 중인 아이디입니다.");
     } else {
       return res.send("사용할 수 있는 아이디입니다.");
     }
