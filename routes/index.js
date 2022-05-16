@@ -55,13 +55,18 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
 
 //아이디 중복체크
 router.post("/checkId", async (req, res, next) => {
-  const id = req.body.rawID;
-  if (id) {
-    const exEmp = await Employee.findOne({ where: { emp_ID: id } });
+  const { inputId } = req.body;
+  console.log(inputId);
+  if (inputId) {
+    const exEmp = await Employee.findOne({ where: { emp_ID: inputId } });
 
     if (exEmp) {
-      res.send("이미 있는 사용자입니다.");
+      return res.send("이미 있는 사용자입니다.");
+    } else {
+      return res.send("사용할 수 있는 아이디입니다.");
     }
+  } else {
+    return res.send("아이디를 입력하세요");
   }
 });
 
