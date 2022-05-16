@@ -67,7 +67,13 @@ router.post("/checkId", async (req, res, next) => {
 
 //관리 미들웨어 확인용(지울 것)
 const { isAdmin } = require("./middlewares");
-router.get("/isadmin", isLoggedIn, isAdmin, (req, res, next) => {
+const { Emp_Proj, Dept, Project, Role } = require("../models");
+router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
+  const participate = await Emp_Proj.findAll();
+  const dept = await Dept.findAll();
+  const project = await Project.findAll();
+  const role = await Role.findAll();
+  console.log(participate, dept, project, role);
   res.send(req.user);
 });
 
