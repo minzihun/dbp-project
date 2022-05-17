@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const { Employee, Manager } = require("../models");
+const { Employee, Manager, Project } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
@@ -9,6 +9,8 @@ var state;
 /* GET home page. */
 router.get("/", async (req, res, next) => {
   console.log(state);
+  let participate = null;
+  let non_participate = null;
   if (!req.user) {
     state = "beforeLogin";
   } else {
@@ -20,18 +22,41 @@ router.get("/", async (req, res, next) => {
     } else {
       state = "employee";
     }
+    participate = await Emp_Proj.findAll({
+      include: [
+        {
+          model: Employee,
+          attributes: ["id"],
+          where: { id: req.user.id },
+        },
+        {
+          model: Project,
+        },
+        {
+          model: Role,
+        },
+      ],
+    });
+    const participate_proj = participate.map((value) => {
+      return value.Project.id;
+    });
+    non_participate = await Project.findAll({
+      where: {
+        id: { [Op.notIn]: participate_proj },
+      },
+    });
   }
   res.render("index", {
     title: "Express",
     state,
+    prj_before: participate,
+    prj_cur: non_participate,
   });
 });
 
 /* GET mypage */
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
-  console.log(current_user);
-  console.log(current_user.emp_ID);
   const emp_ID = current_user.emp_ID;
   res.render("mypage", { title: "Mypage", state, current_user, emp_ID });
 });
@@ -60,7 +85,6 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
 /* POST checkId */
 router.post("/checkId", async (req, res, next) => {
   const { inputId } = req.body;
-  console.log(inputId);
   if (inputId) {
     const exEmp = await Employee.findOne({ where: { emp_ID: inputId } });
 
@@ -76,7 +100,7 @@ router.post("/checkId", async (req, res, next) => {
 
 //관리 미들웨어 확인용(지울 것)
 const { isAdmin } = require("./middlewares");
-const { Emp_Proj, Dept, Project, Role } = require("../models");
+const { Emp_Proj, Dept, Role } = require("../models");
 router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
   const participate = await Emp_Proj.findAll();
   const dept = await Dept.findAll();
@@ -86,7 +110,7 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
   res.send(req.user);
 });
 
-// /* 참가 프로젝트 리스트 */
+/* 참가 프로젝트 리스트 */
 // let participate_proj;
 // router.get("/proj_List", isLoggedIn, async (req, res, next) => {
 //   const participate = await Emp_Proj.findAll({
@@ -108,7 +132,6 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
 //   participate_proj = participate.map((value) => {
 //     return value.Project.id;
 //   });
-//   console.log(participate);
 //   res.send(participate);
 // });
 // /* 미참가 프로젝트 리스트 */
@@ -118,13 +141,77 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
 //       id: { [Op.notIn]: participate_proj },
 //     },
 //   });
-//   console.log(non_participate);
 //   res.send(non_participate);
 // });
 
 /* 참가 */
-router.post("/participate/:prj", async (req, res, next) => {});
+router.post("/participateProj", async (req, res, next) => {
+  console.log("참가");
+  const { non_project_name, non_duration, non_organization, non_budget } =
+    req.body;
+  // const proj_start_date = new Date(non_duration.replace(" ", "").split("~")[0]);
+  // console.log(proj_start_date);
+  // console.log(non_project_name, non_duration, non_organization, non_budget);
+  const participateProject = await Project.findOne({
+    attributes: ["id", "proj_end_date"],
+    where: { project_name: non_project_name },
+  });
+  console.log(participateProject.id);
+  // const Project_id = await Project.findOne({ where: { project_name } });
+  // const Project_id = req.params.prj;
+  // const Employee_number = req.user.id;
+  // const Project = await Project.findOne({ where: { id: Project_id } });
+  const result = await Emp_Proj.create({
+    part_start_date: Date.now(),
+    part_end_date: participateProject.proj_end_date,
+    Role_id: 1,
+    Employee_number: req.user.id,
+    Project_id: participateProject.id,
+  });
+  console.log("result");
+  res.redirect("/");
+});
 
 /* 참가 중지 */
-router.post("/stop/:prj", async (req, res, next) => {});
+router.post("/stopProj", async (req, res, next) => {
+  console.log("참가 중지");
+  const {
+    project_name,
+    duration,
+    participate_term,
+    organization,
+    budget,
+    role,
+  } = req.body;
+  const participateProject = await Project.findOne({
+    attributes: ["id"],
+    where: { project_name },
+  });
+  console.log(participateProject.id);
+
+  const result = await Emp_Proj.update(
+    { part_end_date: Date.now() },
+    {
+      where: {
+        Project_id: participateProject.id,
+        Employee_number: req.user.id,
+      },
+    }
+  );
+  console.log(result);
+  // console.log(
+  //   project_name,
+  //   duration,
+  //   participate_term,
+  //   organization,
+  //   budget,
+  //   role
+  // );
+  res.end();
+
+  // await Emp_Proj.update(
+  //   { part_end_date: Date.now() },
+  //   { where: { Employee_number: req.user.id } }
+  // );
+});
 module.exports = router;
