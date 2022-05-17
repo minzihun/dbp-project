@@ -7,6 +7,8 @@ block content
   div.float-right
     nav.navbar.navbar-light.mt-4.mb-3
       form.form-inline(action='/manager/searchEmployee', method='post')
+
+      form.form-inline(action='/management/searchEmployee', method='post')
         .col-md-auto.align-items-right(style="padding: 0")
           select.custom-select(name="selected_search_key", size="1")
             option(value='id') ID
