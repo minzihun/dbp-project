@@ -51,7 +51,6 @@ exports.isAdmin = async (req, res, next) => {
   const exManager = await Manager.findOne({
     where: { Employee_number: req.user.id },
   });
-  console.log(exManager);
 
   if (exManager) {
     next();
