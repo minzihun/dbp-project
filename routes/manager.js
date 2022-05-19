@@ -5,7 +5,10 @@ const { isLoggedIn, isAdmin } = require("./middlewares");
 router.use(isLoggedIn, isAdmin);
 // 경영진 - 직원검색
 router.get("/searchEmployee", function (req, res, next) {
-  res.render("manager/searchEmployee", { title: "searchEmployee" });
+  res.render("manager/searchEmployee", {
+    title: "searchEmployee",
+    state: req.state,
+  });
 });
 
 // // 경영진 - 직원검색
@@ -36,18 +39,25 @@ router.get("/searchEmployee", function (req, res, next) {
 
 // 경영진 - 프로젝트검색
 router.get("/manageAllProject", function (req, res, next) {
-  res.render("manager/manageAllProject", { title: "manageAllProject" });
+  res.render("manager/manageAllProject", {
+    title: "manageAllProject",
+    state: req.state,
+  });
 });
 
 // 경영진 - 프로젝트 상세 페이지로 이동
 router.get("/project/1", function (req, res, next) {
-  res.render("manager/manProjectDetail", { title: "manProjectDetail" });
+  res.render("manager/manProjectDetail", {
+    title: "manProjectDetail",
+    state: req.state,
+  });
 });
 
 // 경영진 - 프로젝트 수정
 router.get("/project/1/update", function (req, res, next) {
   res.render("manager/updateManProjectDetail", {
     title: "updateManProjectDetail",
+    state: req.state,
   });
 });
 

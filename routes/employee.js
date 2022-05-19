@@ -38,12 +38,18 @@ router.post("/createProject", async (req, res, next) => {
 
 // 직원- 프로젝트 관리
 router.get("/projectList", function (req, res, next) {
-  res.render("employee/projectList", { title: "projectList" });
+  res.render("employee/projectList", {
+    title: "projectList",
+    state: req.state,
+  });
 });
 
 // 직원- 프로젝트 등록
 router.get("/createProject", function (req, res, next) {
-  res.render("employee/createProject", { title: "createProject" });
+  res.render("employee/createProject", {
+    title: "createProject",
+    state: req.state,
+  });
 });
 
 router.get("/pm/project/:id", async (req, res, next) => {
@@ -56,25 +62,43 @@ router.get("/pm/project/:id", async (req, res, next) => {
         { model: Role },
       ],
     });
-    const employees = employeeList.map((element) => {
-      return element.Employee;
-    });
-    console.log(currentProj);
-    console.log(employees);
     res.render("pm/pmProjectDetail", {
       title: "pmProjectDetail",
       currentProj,
       employeeList,
+      totalEmp: employeeList.length,
+      state: req.state,
     });
   } catch (error) {
     console.error(error);
     return next(error);
   }
 });
-
 // PM - 프로젝트 업데이트
-router.get("/pm/project/1/update", function (req, res, next) {
-  res.render("pm/updatePmProjectDetail", { title: "updatePmProjectDetail" });
+router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
+  try {
+    const currentProj = await Project.findOne({ where: { id: req.params.id } });
+    const employeeList = await Emp_Proj.findAll({
+      include: [
+        { model: Employee },
+        { model: Project, where: { id: req.params.id } },
+        { model: Role },
+      ],
+    });
+    const employees = employeeList.map((element) => {
+      return element.Employee;
+    });
+    res.render("pm/updatePmProjectDetail", {
+      title: "updatePmProjectDetail",
+      currentProj,
+      employeeList,
+      totalEmp: employeeList.length,
+      state: req.state,
+    });
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
 });
 
 module.exports = router;

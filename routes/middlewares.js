@@ -61,18 +61,26 @@ exports.isAdmin = async (req, res, next) => {
   }
 };
 
+//pm인지 확인
+//parameter projetct_id를 id로 받아야 함
 exports.isPM = async (req, res, next) => {
   const exPM = await Emp_Proj.findOne({
     where: {
-      Role_id: 2,
+      Role_id: "2",
       Employee_number: req.user.id,
-      Project_id: req.params.Project_id,
+      Project_id: req.params.id,
     },
   });
+  console.log("=====================================");
+  console.log(exPM);
+  next();
   if (exPM) {
     next();
   } else {
-    res.send('<script type="text/javascript">alert("PM이 아닙니다.");');
+    // res.redirect(`/employee/pm/project/${req.params.id}`);
+    res.send(
+      `<script type="text/javascript">window.location="/employee/pm/project/${req.params.id}";alert('PM이 아닙니다.');</script>`
+    );
   }
 };
 

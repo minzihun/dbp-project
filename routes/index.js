@@ -5,23 +5,13 @@ const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
 
-var state;
+// var state;
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  console.log(state);
+  console.log(req.state);
   let participate = null;
   let non_participate = null;
-  if (!req.user) {
-    state = "beforeLogin";
-  } else {
-    const isAdmin = await Manager.findOne({
-      where: { Employee_number: req.user.id },
-    });
-    if (isAdmin) {
-      state = "manager";
-    } else {
-      state = "employee";
-    }
+  if (req.state != "beforeLogin") {
     participate = await Emp_Proj.findAll({
       include: [
         {
@@ -46,9 +36,21 @@ router.get("/", async (req, res, next) => {
       },
     });
   }
+  // if (!req.user) {
+  //   state = "beforeLogin";
+  // } else {
+  //   const isAdmin = await Manager.findOne({
+  //     where: { Employee_number: req.user.id },
+  //   });
+  //   if (isAdmin) {
+  //     state = "manager";
+  //   } else {
+  //     state = "employee";
+  //   }
+  // }
   res.render("index", {
     title: "Express",
-    state,
+    state: req.state,
     prj_before: participate,
     prj_cur: non_participate,
   });
@@ -59,14 +61,18 @@ router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
   const emp_ID = current_user.emp_ID;
 
-  res.render("mypage", { title: "Mypage", state, current_user });
+  res.render("mypage", { title: "Mypage", state: req.state, current_user });
 });
 
 /* GET mypageupdate */
 router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
   console.log(current_user);
-  res.render("updateMyInfo", { title: "Mypage", state, current_user });
+  res.render("updateMyInfo", {
+    title: "Mypage",
+    state: req.state,
+    current_user,
+  });
 });
 
 /* POST mypage */
