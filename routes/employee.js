@@ -76,6 +76,8 @@ router.get("/pm/project/:id", async (req, res, next) => {
 });
 // PM - 프로젝트 업데이트
 router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
+  console.log("--------------------------");
+  console.log(req.params.id);
   try {
     const currentProj = await Project.findOne({ where: { id: req.params.id } });
     const employeeList = await Emp_Proj.findAll({

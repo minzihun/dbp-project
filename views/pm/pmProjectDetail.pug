@@ -34,7 +34,7 @@ block content
                   strong 예산
                     p.text-h3.ml-3 #{currentProj.budget}
                       //- | 1,000,000
-      a.btn.btn-black.btn-empty(href='/employee/pm/project/1/update', style='float: right') 수정
+      a.btn.btn-black.btn-empty(href=`/employee/pm/project/${currentProj.id}/update`, style='float: right') 수정
       .row.mt-4
       h2.ml-3.mt-5 참여 직원
       .row.align-items-center.mt-2

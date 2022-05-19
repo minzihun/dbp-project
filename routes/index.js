@@ -5,7 +5,6 @@ const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
 
-// var state;
 /* GET home page. */
 router.get("/", async (req, res, next) => {
   console.log(req.state);
@@ -36,18 +35,6 @@ router.get("/", async (req, res, next) => {
       },
     });
   }
-  // if (!req.user) {
-  //   state = "beforeLogin";
-  // } else {
-  //   const isAdmin = await Manager.findOne({
-  //     where: { Employee_number: req.user.id },
-  //   });
-  //   if (isAdmin) {
-  //     state = "manager";
-  //   } else {
-  //     state = "employee";
-  //   }
-  // }
   res.render("index", {
     title: "Express",
     state: req.state,
@@ -118,40 +105,6 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
   res.send(req.user);
 });
 
-/* 참가 프로젝트 리스트 */
-// let participate_proj;
-// router.get("/proj_List", isLoggedIn, async (req, res, next) => {
-//   const participate = await Emp_Proj.findAll({
-//     include: [
-//       {
-//         model: Employee,
-//         attributes: ["id"],
-//         where: { id: req.user.id },
-//       },
-//       {
-//         model: Project,
-//       },
-//       {
-//         model: Role,
-//       },
-//     ],
-//   });
-
-//   participate_proj = participate.map((value) => {
-//     return value.Project.id;
-//   });
-//   res.send(participate);
-// });
-// /* 미참가 프로젝트 리스트 */
-// router.get("/non_proj_List", async (req, res, next) => {
-//   const non_participate = await Project.findAll({
-//     where: {
-//       id: { [Op.notIn]: participate_proj },
-//     },
-//   });
-//   res.send(non_participate);
-// });
-
 /* 참가 */
 router.post("/participateProj", async (req, res, next) => {
   console.log("참가");
@@ -207,19 +160,6 @@ router.post("/stopProj", async (req, res, next) => {
     }
   );
   console.log(result);
-  // console.log(
-  //   project_name,
-  //   duration,
-  //   participate_term,
-  //   organization,
-  //   budget,
-  //   role
-  // );
   res.end();
-
-  // await Emp_Proj.update(
-  //   { part_end_date: Date.now() },
-  //   { where: { Employee_number: req.user.id } }
-  // );
 });
 module.exports = router;

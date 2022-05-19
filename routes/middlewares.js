@@ -66,14 +66,16 @@ exports.isAdmin = async (req, res, next) => {
 exports.isPM = async (req, res, next) => {
   const exPM = await Emp_Proj.findOne({
     where: {
-      Role_id: "2",
+      Role_id: 2,
       Employee_number: req.user.id,
       Project_id: req.params.id,
     },
   });
-  console.log("=====================================");
-  console.log(exPM);
-  next();
+  // console.log(req.user.id);
+  // console.log(req.params.id);
+  // console.log("=====================================");
+  // console.log(exPM);
+  // next();
   if (exPM) {
     next();
   } else {
