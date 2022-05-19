@@ -1,7 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var { Project, Emp_Proj } = require("../models");
+var { Project, Emp_Proj, Employee, Role } = require("../models");
 var { isLoggedIn } = require("./middlewares");
+const { isPM } = require("./middlewares");
 
 router.use(isLoggedIn);
 //프로젝트 등록 & PM 등록
@@ -45,8 +46,28 @@ router.get("/createProject", function (req, res, next) {
   res.render("employee/createProject", { title: "createProject" });
 });
 
-router.get("/pm/project/1", function (req, res, next) {
-  res.render("pm/pmProjectDetail", { title: "pmProjectDetail" });
+router.get("/pm/project/:id", async (req, res, next) => {
+  try {
+    // const currentProj = await Project.findOne({ where: { id: req.params.id } });
+    // const employeeList = await Emp_Proj.findAll({
+    //   include: [
+    //     { model: Employee },
+    //     { model: Project, where: { id: req.params.id } },
+    //     { model: Role },
+    //   ],
+    // });
+    // const employees = employeeList.map((element) => {
+    //   return element.Employee;
+    // });
+    // console.log(currentProj);
+    // console.log(employees);
+    res.render("/pm/pmProjectDetail", {
+      title: "pmProjectDetail",
+    });
+  } catch (error) {
+    console.error(error);
+    // return next(error);
+  }
 });
 
 // PM - 프로젝트 업데이트

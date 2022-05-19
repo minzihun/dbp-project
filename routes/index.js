@@ -58,9 +58,7 @@ router.get("/", async (req, res, next) => {
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
   const emp_ID = current_user.emp_ID;
-  console.log("=======================");
-  console.log(emp_ID);
-  console.log(current_user);
+
   res.render("mypage", { title: "Mypage", state, current_user });
 });
 

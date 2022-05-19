@@ -75,3 +75,19 @@ exports.isPM = async (req, res, next) => {
     res.send('<script type="text/javascript">alert("PM이 아닙니다.");');
   }
 };
+
+exports.getState = async (req, res, next) => {
+  if (!req.user) {
+    req.state = "beforeLogin";
+  } else {
+    const isAdmin = await Manager.findOne({
+      where: { Employee_number: req.user.id },
+    });
+    if (isAdmin) {
+      req.state = "manager";
+    } else {
+      req.state = "employee";
+    }
+  }
+  next();
+};
