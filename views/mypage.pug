@@ -2,7 +2,8 @@ extends layout
 
 //- 마이 페이지
 block content
-  - console.log('sdfsdf',emp_ID);
+  - console.log('===================================')
+  - console.log(current_user.emp_ID)
   section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
     .container
       .row.text-left.align-items-center
@@ -11,34 +12,30 @@ block content
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 아이디
-                    p.text-h3.ml-3
-                    #{current_user}
+                    p.text-h3.ml-3 #{current_user.emp_ID}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 이름
-                    p.text-h3.ml-3
-                      #{current_user.emp_name}
+                    p.text-h3.ml-3 #{current_user.emp_name}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 최종학력
-                    p.text-h3.ml-3
-                      #{current_user.emp_final_edu}
+                    p.text-h3.ml-3 #{current_user.emp_final_edu}
                       
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 기술
-                    p.text-h3.ml-3
-                      #{current_user.skill}
+                    p.text-h3.ml-3 #{current_user.skill}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 경력
-                    p.text-h3.ml-3
-                      #{current_user.career}
+                    p.text-h3.ml-3 #{current_user.career}
+                      
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 부서
-                    p.text-h3.ml-3
-                     #{current_user.dept}
+                    p.text-h3.ml-3 #{current_user.dept}
+                     
             
             a.btn.btn-black.btn-empty(href='/updateMyInfo', style='float: right') 수정
               //- if state === 'developer'

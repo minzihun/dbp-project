@@ -58,12 +58,16 @@ router.get("/", async (req, res, next) => {
 router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
   const emp_ID = current_user.emp_ID;
-  res.render("mypage", { title: "Mypage", state, current_user, emp_ID });
+  console.log("=======================");
+  console.log(emp_ID);
+  console.log(current_user);
+  res.render("mypage", { title: "Mypage", state, current_user });
 });
 
 /* GET mypageupdate */
 router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
+  console.log(current_user);
   res.render("updateMyInfo", { title: "Mypage", state, current_user });
 });
 
