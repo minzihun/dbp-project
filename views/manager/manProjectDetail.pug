@@ -12,28 +12,27 @@ block content
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 프로젝트명
-                    p.text-h3.ml-3
-                      | 딥러닝분석프로젝트
+                    p.text-h3.ml-3 #{currentProj.project_name}
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 프로젝트 착수일자
-                    p.text-h3.ml-3
-                      | 20220511
+                    p.text-h3.ml-3 #{currentProj.proj_start_date}
+          
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
-                  strong 프로젝트 종료일자
-                    p.text-h3.ml-3
-                      | 20220522
+                  strong 프로젝트 종료일자 
+                    p.text-h3.ml-3 #{currentProj.proj_end_date}
+                   
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 발주처
-                    p.text-h3.ml-3
-                      | "명지대 전산팀"
+                    p.text-h3.ml-3 #{currentProj.project_organization}
+                 
               .col-12.col-sm-6.pt-3.pt-sm-0
                 h3
                   strong 예산
-                    p.text-h3.ml-3
-                      | 1,000,000
+                    p.text-h3.ml-3 #{currentProj.budget}
+                    
       a.btn.btn-black.btn-empty(href='/manager/project/1/update', style='float: right') 수정
       .row.mt-4
       h2.ml-3.mt-5 참여 직원
@@ -47,6 +46,13 @@ block content
                 th(scope="col") 프로젝트 참여일
                 th(scope="col") 프로젝트 종료일
             tbody
+              each value in employeeList
+                tr 
+                  td #{value.Employee.emp_name}
+                  td #{value.Role.role_name}
+                  td #{value.part_start_date}
+                  td #{value.part_end_date}
+                  
               //- each value in pi
               //-   tr
               //-     td

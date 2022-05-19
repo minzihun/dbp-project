@@ -13,23 +13,23 @@ block content
                 .col-12.col-sm-6.pt-3.pt-sm-0
                   h3
                     strong 프로젝트명
-                      input.form-control.text-h3.ml-3(type="text", name="projectname" value="딥러닝분석프로젝트")
+                      input.form-control.text-h3.ml-3(type="text", name="projectname" value=`${currentProj.project_name}`)
                 .col-12.col-sm-6.pt-3.pt-sm-0
                   h3
                     strong 프로젝트 착수일자
-                      input.form-control.text-h3.ml-3(type="text", name="" value="20220511")
+                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.proj_start_date}`)
                 .col-12.col-sm-6.pt-3.pt-sm-0
                   h3
                     strong 프로젝트 종료일자
-                      input.form-control.text-h3.ml-3(type="text", name="" value="20220525")
+                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.proj_end_date}`)
                 .col-12.col-sm-6.pt-3.pt-sm-0
                   h3
                     strong 발주처
-                      input.form-control.text-h3.ml-3(type="text", name="" value="명지대 전산팀")
+                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.project_organization}`)
                 .col-12.col-sm-6.pt-3.pt-sm-0
                   h3
                     strong 예산
-                      input.form-control.text-h3.ml-3(type="text", name="" value="1000000")
+                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.budget}`)
         .row.mt-4
         button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
         h2.ml-3.mt-5 참여 직원
@@ -43,6 +43,12 @@ block content
                   th(scope="col") 프로젝트 참여일
                   th(scope="col") 프로젝트 종료일
               tbody
+              each value in employeeList
+                tr 
+                  td #{value.Employee.emp_name}
+                  td #{value.Role.role_name}
+                  td #{value.part_start_date}
+                  td #{value.part_end_date}
                 //- each value in pi
                 //-   tr
                 //-     td
