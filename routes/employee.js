@@ -48,25 +48,27 @@ router.get("/createProject", function (req, res, next) {
 
 router.get("/pm/project/:id", async (req, res, next) => {
   try {
-    // const currentProj = await Project.findOne({ where: { id: req.params.id } });
-    // const employeeList = await Emp_Proj.findAll({
-    //   include: [
-    //     { model: Employee },
-    //     { model: Project, where: { id: req.params.id } },
-    //     { model: Role },
-    //   ],
-    // });
-    // const employees = employeeList.map((element) => {
-    //   return element.Employee;
-    // });
-    // console.log(currentProj);
-    // console.log(employees);
-    res.render("/pm/pmProjectDetail", {
+    const currentProj = await Project.findOne({ where: { id: req.params.id } });
+    const employeeList = await Emp_Proj.findAll({
+      include: [
+        { model: Employee },
+        { model: Project, where: { id: req.params.id } },
+        { model: Role },
+      ],
+    });
+    const employees = employeeList.map((element) => {
+      return element.Employee;
+    });
+    console.log(currentProj);
+    console.log(employees);
+    res.render("pm/pmProjectDetail", {
       title: "pmProjectDetail",
+      currentProj,
+      employeeList,
     });
   } catch (error) {
     console.error(error);
-    // return next(error);
+    return next(error);
   }
 });
 

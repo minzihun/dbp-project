@@ -47,8 +47,13 @@ block content
                 th(scope="col") 프로젝트 참여일
                 th(scope="col") 프로젝트 종료일
             tbody
-              //- each value in pi
-              //-   tr
+              each value in employeeList
+                tr 
+                  td #{value.Employee.emp_name}
+                  td #{value.Role.role_name}
+                  td #{value.Project.proj_start_date}
+                  td #{value.Project.proj_end_date}
+                  
                   //- td #{pi.Employee.emp_name}
               //-       a(href=`/management/detail/`)
               //-     td=value[2]
