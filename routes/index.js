@@ -5,6 +5,8 @@ const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
 
+// 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
+// 프로젝트 참가 혹은 중지를 결정할 수 있다.(프로젝트 기본 내용 부분)
 /* GET home page. */
 router.get("/", async (req, res, next) => {
   console.log(req.state);
@@ -62,6 +64,9 @@ router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   });
 });
 
+// 요구사항 3번) 직원은 마이페이지를 통해
+// 자신의 정보(경력과 기술, 직원번호, 직원명, 주민등록번호, 최종학력)를
+// 데이터베이스에 저장 및 수정할 수 있다.
 /* POST mypage */
 router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   const { name, final_edu, skill, career, dept } = req.body;
@@ -77,6 +82,9 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 요구사항 2번) 회원가입 시 회원 로그인은 중복 체크 기능을 추가하여
+// 기 등록된 id로 회원가입 신청을 할 경우 에러 메시지를 출력하고
+// 중복되지 않은 신규 id를 입력할 수 있어야 한다.(중복확인 버튼)
 /* POST checkId */
 router.post("/checkId", async (req, res, next) => {
   const { inputId } = req.body;
@@ -105,6 +113,8 @@ router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
   res.send(req.user);
 });
 
+// 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
+// 프로젝트 참가 혹은 중지를 결정할 수 있다.(참가 부분)
 /* 참가 */
 router.post("/participateProj", async (req, res, next) => {
   console.log("참가");
@@ -133,6 +143,8 @@ router.post("/participateProj", async (req, res, next) => {
   res.redirect("/");
 });
 
+// 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
+// 프로젝트 참가 혹은 중지를 결정할 수 있다.(참가중지 부분)
 /* 참가 중지 */
 router.post("/stopProj", async (req, res, next) => {
   console.log("참가 중지");

@@ -4,6 +4,8 @@ const { isLoggedIn, isAdmin } = require("./middlewares");
 const { Project, Emp_Proj, Employee, Role } = require("../models");
 const { Op } = require("sequelize");
 
+// 요구사항 4번) 경영진은 일반직원과는 다르게
+// 타 직원들의 정보를 검색할 수 있는 권한이 있어야 한다.
 router.use(isLoggedIn, isAdmin);
 // 경영진 - 직원검색
 router.get("/searchEmployee", function (req, res, next) {
@@ -119,10 +121,10 @@ router.post("/searchEmployee", async (req, res, next) => {
     }
   }
 });
+// 요구사항 6번) 경영진은 관리페이지를 통해 각 프로젝트 진행 상황 관리를 할 수 있다.
 // 경영진 - 프로젝트검색
 router.get("/manageAllProject", async function (req, res, next) {
   const projList = await Project.findAll();
-
   res.render("manager/manageAllProject", {
     title: "manageAllProject",
     state: req.state,
@@ -130,6 +132,8 @@ router.get("/manageAllProject", async function (req, res, next) {
   });
 });
 
+// 요구사항 7번) 경영진은 관리 페이지에서 기간을 입력하여
+// 그 기간 내에 진행되었던 프로젝트를 볼 수 있다.
 router.post("/manageAllProject", async function (req, res, next) {
   let { start_date, end_date } = req.body;
   start_date = new Date(start_date);
@@ -194,4 +198,6 @@ router.get("/project/:id/update", async function (req, res, next) {
   }
 });
 
+// 요구사항 12번) 경영진은 프로젝트 예산을 조정할 수 있다.
+router.post("/project/:id/update", async (req, res, next) => {});
 module.exports = router;

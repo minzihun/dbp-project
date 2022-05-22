@@ -5,6 +5,9 @@ var { isLoggedIn } = require("./middlewares");
 const { isPM } = require("./middlewares");
 
 router.use(isLoggedIn);
+// 요구사항 8번) PM은 프로젝트 등록 페이지를 통해
+// 프로젝트 번호, 프로젝트명, 프로젝트 착수일자/종료일자, 발주처, 예산 등
+// 프로젝트 정보를 저장할 수 있다.
 //프로젝트 등록 & PM 등록
 router.post("/createProject", async (req, res, next) => {
   const { name, start_date, end_date, organization, budget } = req.body;
@@ -74,6 +77,7 @@ router.get("/pm/project/:id", async (req, res, next) => {
     return next(error);
   }
 });
+// 요구사항 11번) PM은 프로젝트 정보를 수정할 수 있다.
 // PM - 프로젝트 업데이트
 router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
   console.log("--------------------------");

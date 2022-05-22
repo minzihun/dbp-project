@@ -2,9 +2,13 @@ var express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+const { getDeptId } = require("./user");
 const Employee = require("../models/employee");
 var router = express.Router();
 
+// 요구사항 2번) 회원가입 시 회원 로그인은 중복 체크 기능을 추가하여
+// 기 등록된 id로 회원가입 신청을 할 경우 에러 메시지를 출력하고
+// 중복되지 않은 신규 id를 입력할 수 있어야 한다.
 // 회원가입
 router.post("/signup", isNotLoggedIn, async function (req, res, next) {
   const {
@@ -17,24 +21,10 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
     career,
     dept,
   } = req.body;
-  let Dept_id;
-  switch (dept) {
-    case "개발 1팀":
-      Dept_id = 1;
-      break;
-    case "개발 2팀":
-      Dept_id = 2;
-      break;
-    case "개발 3팀":
-      Dept_id = 3;
-      break;
-    default:
-      Dept_id = 1;
-      break;
-  }
+  const Dept_id = getDeptId(dept);
   try {
     const exEmp = await Employee.findOne({ where: { emp_ID: id } });
-
+    // 기등록된 id의 경우 에러 메시지 출력
     if (exEmp) {
       console.log("이미 있는 사용자입니다.");
       return res.send(
@@ -76,6 +66,7 @@ router.get("/signup", isNotLoggedIn, async function (req, res, next) {
   }
 });
 
+// 요구사항 1번) 사용자는 아이디와 비밀번호로 로그인할 수 있다.
 //로그인
 router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("employeeLocal", (authError, user, info) => {
