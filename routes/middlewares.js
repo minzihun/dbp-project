@@ -8,10 +8,14 @@ exports.isLoggedIn = (req, res, next) => {
     next();
   } else {
     // res.status(403).send("로그인 필요");
+    const message = encodeURIComponent("로그인이 필요합니다.");
+
     res
       .status(403)
       .send(
-        `<script type="text/javascript">window.location="/";alert('로그인이 필요합니다.');</script>`
+        `<script type="text/javascript">window.location="/auth/login";alert('${decodeURIComponent(
+          message
+        )}');</script>`
       );
   }
 };
@@ -21,9 +25,11 @@ exports.isNotLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     next();
   } else {
-    // const message = encodeURIComponent('로그인한 상태입니다.');
+    const message = encodeURIComponent("로그인한 상태입니다.");
     res.send(
-      `<script type="text/javascript">window.location="/";alert('로그인한 상태입니다.');</script>`
+      `<script type="text/javascript">window.location="/";alert('${decodeURIComponent(
+        message
+      )}');</script>`
     );
 
     // res.redirect(`/?error=${message}`);
@@ -31,23 +37,10 @@ exports.isNotLoggedIn = (req, res, next) => {
   }
 };
 
-// //관리자확인
-// exports.isAdmin = (req, res, next) => {
-//   if (req.user.isAdmin) {
-//     next();
-//   } else {
-//     res.send(
-//       `<script type="text/javascript">window.location="/";alert('관리자가 아닙니다.');</script>`
-//     );
-//   }
-// };
-
 exports.isAdmin = async (req, res, next) => {
   // req.flash('errors', {login:"You don't have permission"});
   // req.logout();
   // res.redirect('/');
-  console.log("====================================");
-  console.log(req.user.id);
   const exManager = await Manager.findOne({
     where: { Employee_number: req.user.id },
   });
@@ -55,8 +48,11 @@ exports.isAdmin = async (req, res, next) => {
   if (exManager) {
     next();
   } else {
+    const message = encodeURIComponent("관리자가 아닙니다.");
     res.send(
-      `<script type="text/javascript">window.location="/";alert('관리자가 아닙니다.');</script>`
+      `<script type="text/javascript">window.location="/";alert('${decodeURIComponent(
+        message
+      )}');</script>`
     );
   }
 };
@@ -71,17 +67,16 @@ exports.isPM = async (req, res, next) => {
       Project_id: req.params.id,
     },
   });
-  // console.log(req.user.id);
-  // console.log(req.params.id);
-  // console.log("=====================================");
-  // console.log(exPM);
-  // next();
+
   if (exPM) {
     next();
   } else {
-    // res.redirect(`/employee/pm/project/${req.params.id}`);
+    const message = encodeURIComponent("PM이 아닙니다.");
+
     res.send(
-      `<script type="text/javascript">window.location="/employee/pm/project/${req.params.id}";alert('PM이 아닙니다.');</script>`
+      `<script type="text/javascript">window.location="/employee/pm/project/${
+        req.params.id
+      }";alert('${decodeURIComponent(message)}');</script>`
     );
   }
 };

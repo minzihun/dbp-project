@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const { isLoggedIn, isAdmin } = require("./middlewares");
 const { Project, Emp_Proj, Employee, Role, Dept } = require("../models");
+const { Op } = require("sequelize");
 
 router.use(isLoggedIn, isAdmin);
 
@@ -93,9 +94,30 @@ router.post("/searchEmployee", async (req, res, next) => {
 });
 
 // 경영진 - 프로젝트검색
-router.get("/manageAllProject", function (req, res, next) {
+router.get("/manageAllProject", async function (req, res, next) {
+  const projList = await Project.findAll();
+
   res.render("manager/manageAllProject", {
     title: "manageAllProject",
+    state: req.state,
+    result: projList,
+  });
+});
+
+router.post("/manageAllProject", async function (req, res, next) {
+  let { start_date, end_date } = req.body;
+  start_date = new Date(start_date);
+  end_date = new Date(end_date);
+
+  const projList = await Project.findAll({
+    where: {
+      proj_start_date: { [Op.gte]: start_date },
+      proj_end_date: { [Op.lte]: end_date },
+    },
+  });
+  res.render("/manager/manageAllProject", {
+    title: "manageAllProject",
+    result: projList,
     state: req.state,
   });
 });
