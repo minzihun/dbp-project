@@ -43,7 +43,7 @@ router.post("/searchEmployeeProject", async (req, res, next) =>{
         ]
       });
       res.render("manager/searchEmployeeProject",{
-        title: "searchEmployee",
+        title: "searchEmployeeProject",
         state: req.state,
         result: initemp,
         result2: proj_all,
