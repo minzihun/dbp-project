@@ -79,14 +79,16 @@ router.get("/signup", isNotLoggedIn, async function (req, res, next) {
 //로그인
 router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("employeeLocal", (authError, user, info) => {
-    // console.log('////////////////////////////////////////////////////')
     console.log(user);
     if (authError) {
       console.error(authError);
       return next(authError);
     }
     if (!user) {
-      return res.redirect(`/?loginError=${info.message}`);
+      // return res.redirect(`/?loginError=${info.message}`);
+      return res.send(
+        `<script type="text/javascript">window.location="/auth/login";alert('${info.message}');</script>`
+      );
     }
     return req.logIn(user, (loginError) => {
       if (loginError) {
@@ -96,18 +98,6 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
       return res.redirect("/");
     });
   })(req, res, next);
-
-  // passport.authenticate('managerLocal',(authError, user, info)=>{
-  //     console.log('****************************************')
-  //     console.log(user);
-  //     if(authError){
-  //         console.error(authError)
-  //         return next(authError);
-  //     }
-  //     return req.logIn(user,(loginError)=>{
-  //         if
-  //     })
-  // })
 });
 
 //로그인 화면 렌더
@@ -125,14 +115,5 @@ router.get("/signout", isLoggedIn, (req, res) => {
   req.session.destroy();
   res.redirect("/");
 });
-
-// //마이페이지
-// router.get('/mypage',isLoggedIn, function(req, res, next) {
-//     res.render('mypage', { title: 'Mypage' });
-// });
-
-// router.get('/mypage/update',isLoggedIn, function(req,res,next){
-//     res.render('updateMyInfo',{title:'UpdateMyInfo'})
-// })
 
 module.exports = router;
