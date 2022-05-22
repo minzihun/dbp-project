@@ -6,7 +6,7 @@ const { Op } = require("sequelize");
 
 router.use(isLoggedIn, isAdmin);
 
-// 경영진 - 직원검색
+// 경영진 - 직원 정보 검색
 router.get("/searchEmployee", async (req, res, next) => {
   try{
     const initemp = await Employee.findAll({
@@ -23,68 +23,54 @@ router.get("/searchEmployee", async (req, res, next) => {
   }
 });
 
-// 요구사항 5번) 경영진은 관리 페이지에서 직원 검색을 통해 해당 직원의 과거 프로젝트 이력을 볼 수 있다.
-// 특정 직원 검색(post): 검색한 직원에 대한 정보만 나옴. + 참여한 프로젝트 정보 표시
-router.post("/searchEmployee", async (req, res, next) => {
-  const { selected_search_key, search_key } = req.body;
+// 경영진 - 직원 프로젝트 이력 열람
+router.post("/searchEmployeeProject", async (req, res, next) =>{
+  var selected_search_key = req.body.selected_search_key;
+  var search_key = req.body.search_key;
   console.log(selected_search_key, search_key);
+
   if (selected_search_key == "id") {
-    try {
-      const employee = await Employee.findOne({
-        where: {
-          id: search_key,
-        },
+    try{
+      const initemp = await Employee.findOne({
+        where: [{ id: search_key }],
+        include: [{ model: Dept }],
       });
-      const result = await Emp_Proj.findAll({
+      const proj_all = await Emp_Proj.findAll({
         include: [
-          {
-            model: Employee,
-            attribute: ["id"],
-            where: { id: search_key },
-          },
-          {
-            model: Project,
-          },
-          {
-            model: Role,
-          },
-        ],
+          { model: Employee, where: {id: search_key}},
+          { model: Project },
+          { model: Role },
+        ]
       });
-      res.render("manager/searchEmployee", {
+      res.render("manager/searchEmployeeProject",{
         title: "searchEmployee",
-        employee,
-        result,
+        state: req.state,
+        result: initemp,
+        result2: proj_all,
       });
     } catch (error) {
       console.error(error);
       return next(error);
     }
+
   } else {
-    try {
-      const employee = await Employee.findOne({
-        where: {
-          emp_name: search_key,
-        },
+    try{
+      const initemp = await Employee.findOne({
+        where: [{ emp_name: search_key }],
+        include: [{ model: Dept }],
       });
-      const result = await Emp_Proj.findAll({
+      const proj_all = await Emp_Proj.findAll({
         include: [
-          {
-            model: Employee,
-            attribute: ["id"],
-            where: { id: employee.id },
-          },
-          {
-            model: Project,
-          },
-          {
-            model: Role,
-          },
-        ],
+          { model: Employee, where: {emp_name: search_key}},
+          { model: Project },
+          { model: Role },
+        ]
       });
-      res.render("manager/searchEmployee", {
+      res.render("manager/searchEmployeeProject",{
         title: "searchEmployee",
-        employee,
-        result,
+        state: req.state,
+        result: initemp,
+        result2: proj_all,
       });
     } catch (error) {
       console.error(error);
