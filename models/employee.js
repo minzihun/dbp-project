@@ -45,7 +45,7 @@ module.exports = class Employee extends Sequelize.Model{
         })
     }
     static associate(db){
-        db.Employee.belongsTo(db.Employee, {foreignKey:'Dept_id', targetKey:'id'});
+        db.Employee.belongsTo(db.Dept, {foreignKey:'Dept_id', targetKey:'id'});
         // db.Employee.hasOne(db.Manager, {foreignKey:'Employee_number',sourceKey:'id'});
         // db.Employee.belongsTo(db.Emp_Proj, {foreignKey:'Employee_number',sourceKey:'id'})
         

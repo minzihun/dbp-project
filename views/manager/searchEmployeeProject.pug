@@ -27,11 +27,33 @@ block content
           th(scope="col") 경력
 
       tbody
-        each value in result
-          tr
-            td #{value.id}
-            td #{value.Dept.dept_name}
-            td #{value.emp_name}
-            td #{value.emp_final_edu}
-            td #{value.skill}
-            td #{value.career}
+        tr
+          td #{result.id}
+          td #{result.Dept.dept_name}
+          td #{result.emp_name}
+          td #{result.emp_final_edu}
+          td #{result.skill}
+          td #{result.career}
+
+  p
+  //- 직원 검색 후, 해 직원이 실행한 프로젝트 내용을 보여줌
+  div
+    table.table.pull-center.table-hover(style="width: 100%; margin: auto")
+      thead.thead-light
+        tr 
+          th(scope="col") 프로젝트명
+          th(scope="col") 역할
+          th(scope="col") 예산
+          th(scope="col") 발주처
+          th(scope="col") 시작일
+          th(scope="col") 종료일
+
+      tbody
+       each value in result2
+         tr
+           td #{value.Project.project_name}
+           td #{value.Role.role_name}
+           td #{value.Project.budget}
+           td #{value.Project.project_organization}
+           td #{value.part_start_date}
+           td #{value.part_end_date}
