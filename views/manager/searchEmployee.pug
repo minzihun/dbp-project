@@ -27,14 +27,14 @@ block content
           th(scope="col") 경력
 
       tbody
-        //- each d in result
-        //-   tr
-        //-     td 
-        //-     td
-        //-     td
-        //-     td
-        //-     td 
-        //-     td 
+        each value in result
+          tr
+            td #{value.id}
+            td #{value.Dept.dept_name}
+            td #{value.emp_name}
+            td #{value.emp_final_edu}
+            td #{value.skill}
+            td #{value.career}
 
     p
 
@@ -49,7 +49,7 @@ block content
             th(scope="col") 시작일
             th(scope="col") 종료일
 
-        tbody
+        //-tbody
           //- each d in result
           //-   tr
           //-     td
