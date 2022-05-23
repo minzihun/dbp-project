@@ -103,7 +103,7 @@ router.post("/manageAllProject", async function (req, res, next) {
       proj_end_date: { [Op.lte]: end_date },
     },
   });
-  res.render("/manager/manageAllProject", {
+  return res.render("manager/manageAllProject", {
     title: "manageAllProject",
     result: projList,
     state: req.state,
