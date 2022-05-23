@@ -30,7 +30,6 @@ block content
                   h3
                     strong 예산
                       input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.budget}`)
-      button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
       .row.mt-4
       h2.ml-3.mt-5 참여 직원
       .row.align-items-center.mt-2
@@ -46,9 +45,16 @@ block content
               each value in employeeList
                 tr 
                   td #{value.Employee.emp_name}
-                  td #{value.Role.role_name}
+                  td 
+                    select.custom-select(name="employee_role", size="1")
+                      option(value='pm') PM
+                      option(value='pl') PL
+                      option(value='analyst') 분석자
+                      option(value='designer') 설계자
                   td #{value.part_start_date}
                   td #{value.part_end_date}
+  
+    button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
               //- each value in pi
               //-   tr
               //-     td
