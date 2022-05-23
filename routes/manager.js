@@ -80,11 +80,6 @@ router.post("/searchEmployeeProject", async (req, res, next) =>{
     }
   }
 });
-<<<<<<< HEAD
-// 요구사항 6번) 경영진은 관리페이지를 통해 각 프로젝트 진행 상황 관리를 할 수 있다.
-=======
-
->>>>>>> c20cc4e09b27eb51dadf787cddd8c82e4baf1501
 // 경영진 - 프로젝트검색
 router.get("/manageAllProject", async function (req, res, next) {
   const projList = await Project.findAll();
