@@ -28,7 +28,8 @@ block content
         tbody
           each value in result
             tr
-              td #{value.project_name}
+              td 
+                a(href=`/manager/project/${value.id}`)= value.project_name
               td #{value.proj_start_date}~#{value.proj_end_date}
               td #{value.project_organization}
               td #{value.budget}
