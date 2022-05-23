@@ -1,21 +1,9 @@
-exports.getUser = (raw_data) => {
-  const { id, emp_ID, emp_name, emp_final_edu, skill, career, dept_id } =
+const getUser = (raw_data) => {
+  const { id, emp_ID, emp_name, emp_final_edu, skill, career, Dept_id } =
     raw_data;
-  let dept;
-  switch (dept_id) {
-    case 1:
-      dept = "개발 1팀";
-      break;
-    case 2:
-      dept = "개발 2팀";
-      break;
-    case 3:
-      dept = "개발 3팀";
-      break;
-    default:
-      dept = "개발 1팀";
-      break;
-  }
+  console.log("********************");
+  console.log(Dept_id);
+  const dept = getDept(Dept_id);
   const current_user = {
     id,
     emp_ID,
@@ -27,9 +15,9 @@ exports.getUser = (raw_data) => {
   };
   return current_user;
 };
-exports.getDept = (Dept_id) => {
+const getDept = (Dept_id) => {
   let dept;
-  switch (dept_id) {
+  switch (Dept_id) {
     case 1:
       dept = "개발 1팀";
       break;
@@ -45,7 +33,7 @@ exports.getDept = (Dept_id) => {
   }
   return dept;
 };
-exports.getDeptId = (dept) => {
+const getDeptId = (dept) => {
   let Dept_id;
   switch (dept) {
     case "개발 1팀":
@@ -63,3 +51,5 @@ exports.getDeptId = (dept) => {
   }
   return Dept_id;
 };
+
+module.exports = { getDept, getDeptId, getUser };

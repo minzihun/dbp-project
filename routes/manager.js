@@ -10,7 +10,7 @@ router.use(isLoggedIn, isAdmin);
 
 // 경영진 - 직원 정보 검색
 router.get("/searchEmployee", async (req, res, next) => {
-  try{
+  try {
     const initemp = await Employee.findAll({
       include: [{ model: Dept }],
     });
@@ -26,25 +26,25 @@ router.get("/searchEmployee", async (req, res, next) => {
 });
 
 // 경영진 - 직원 프로젝트 이력 열람
-router.post("/searchEmployeeProject", async (req, res, next) =>{
+router.post("/searchEmployeeProject", async (req, res, next) => {
   var selected_search_key = req.body.selected_search_key;
   var search_key = req.body.search_key;
   console.log(selected_search_key, search_key);
 
   if (selected_search_key == "id") {
-    try{
+    try {
       const initemp = await Employee.findOne({
         where: [{ id: search_key }],
         include: [{ model: Dept }],
       });
       const proj_all = await Emp_Proj.findAll({
         include: [
-          { model: Employee, where: {id: search_key}},
+          { model: Employee, where: { id: search_key } },
           { model: Project },
           { model: Role },
-        ]
+        ],
       });
-      res.render("manager/searchEmployeeProject",{
+      res.render("manager/searchEmployeeProject", {
         title: "searchEmployeeProject",
         state: req.state,
         result: initemp,
@@ -54,21 +54,20 @@ router.post("/searchEmployeeProject", async (req, res, next) =>{
       console.error(error);
       return next(error);
     }
-
   } else {
-    try{
+    try {
       const initemp = await Employee.findOne({
         where: [{ emp_name: search_key }],
         include: [{ model: Dept }],
       });
       const proj_all = await Emp_Proj.findAll({
         include: [
-          { model: Employee, where: {emp_name: search_key}},
+          { model: Employee, where: { emp_name: search_key } },
           { model: Project },
           { model: Role },
-        ]
+        ],
       });
-      res.render("manager/searchEmployeeProject",{
+      res.render("manager/searchEmployeeProject", {
         title: "searchEmployee",
         state: req.state,
         result: initemp,
@@ -80,11 +79,8 @@ router.post("/searchEmployeeProject", async (req, res, next) =>{
     }
   }
 });
-<<<<<<< HEAD
-// 요구사항 6번) 경영진은 관리페이지를 통해 각 프로젝트 진행 상황 관리를 할 수 있다.
-=======
 
->>>>>>> c20cc4e09b27eb51dadf787cddd8c82e4baf1501
+// 요구사항 6번) 경영진은 관리페이지를 통해 각 프로젝트 진행 상황 관리를 할 수 있다.
 // 경영진 - 프로젝트검색
 router.get("/manageAllProject", async function (req, res, next) {
   const projList = await Project.findAll();
@@ -137,6 +133,7 @@ router.get("/project/:id", async function (req, res, next) {
     return next(error);
   }
 });
+
 
 // 경영진 - 프로젝트 수정
 router.get("/project/:id/update", async function (req, res, next) {

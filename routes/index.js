@@ -56,7 +56,6 @@ router.get("/mypage", isLoggedIn, function (req, res, next) {
 /* GET mypageupdate */
 router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
-  console.log(current_user);
   res.render("updateMyInfo", {
     title: "Mypage",
     state: req.state,
@@ -73,9 +72,16 @@ router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
   const Dept_id = getDeptId(dept);
   try {
     const afterEmp = await Employee.update(
-      { emp_name: name, emp_final_edu: final_edu, skill, career, Dept_id },
+      {
+        emp_name: name,
+        emp_final_edu: final_edu,
+        skill,
+        career,
+        Dept_id,
+      },
       { where: { id: req.user.id } }
     );
+    res.redirect("/mypage");
   } catch (error) {
     console.error(error);
     next(error);
