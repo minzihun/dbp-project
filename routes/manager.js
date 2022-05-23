@@ -104,7 +104,7 @@ router.post("/manageAllProject", async function (req, res, next) {
       proj_end_date: { [Op.lte]: end_date },
     },
   });
-  res.render("/manager/manageAllProject", {
+  return res.render("manager/manageAllProject", {
     title: "manageAllProject",
     result: projList,
     state: req.state,
@@ -133,7 +133,6 @@ router.get("/project/:id", async function (req, res, next) {
     return next(error);
   }
 });
-
 
 // 경영진 - 프로젝트 수정
 router.get("/project/:id/update", async function (req, res, next) {

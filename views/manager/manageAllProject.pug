@@ -23,24 +23,16 @@ block content
           tr
             th(scope="col") 프로젝트명
             th(scope="col") 프로젝트 진행기간
-            th(scope="col") 프로젝트 참가기간
             th(scope="col") 발주처
             th(scope="col") 예산
-            th(scope="col") 직무(역할)
-            th(scope="col") 참가여부
         tbody
-          //- each value in prj_before
-          //-   tr
-          //-     td= value[0]
-          //-     td= value[1]
-          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
-          //-     td= value[4]
-          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
-          //-     if value[6] !== null
-          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
-          //-     else
-          //-       td X
-          //-     td= value[7]
+          each value in result
+            tr
+              td 
+                a(href=`/manager/project/${value.id}`)= value.project_name
+              td #{value.proj_start_date}~#{value.proj_end_date}
+              td #{value.project_organization}
+              td #{value.budget}
 
           //- each value in prj_before
           //-   tr

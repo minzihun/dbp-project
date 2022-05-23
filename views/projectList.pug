@@ -17,14 +17,25 @@ block projectList
         tbody
           each value in prj_before
             tr 
-              td.project_name= value.Project.project_name
-              td.duration= value.Project.proj_start_date+' ~ '+ value.Project.proj_end_date
-              td.participate= value.part_start_date.slice(0,-8)+' ~ '+value.part_end_date.slice(0,~8)
-              td.organization= value.Project.project_organization
-              td.budget= value.Project.budget 
-              td.role= value.Role.role_name 
-              td
-                button.stop 참가중지
+              if(value.Role.role_name=='PM')
+                td
+                  a(href=`/employee/pm/project/${value.Project.id}`)= value.Project.project_name
+                td.duration= value.Project.proj_start_date+' ~ '+ value.Project.proj_end_date
+                td.participate= value.part_start_date.slice(0,-8)+' ~ '+value.part_end_date.slice(0,~8)
+                td.organization= value.Project.project_organization
+                td.budget= value.Project.budget 
+                td.role= value.Role.role_name 
+                td
+                  button.stop 참가중지
+              else
+                td #{value.Project.project_name}
+                td.duration= value.Project.proj_start_date+' ~ '+ value.Project.proj_end_date
+                td.participate= value.part_start_date.slice(0,-8)+' ~ '+value.part_end_date.slice(0,~8)
+                td.organization= value.Project.project_organization
+                td.budget= value.Project.budget 
+                td.role= value.Role.role_name 
+                td
+                  button.stop 참가중지
           //-   tr
           //-     td= value[0]
           //-     td= value[1]
@@ -51,7 +62,7 @@ block projectList
         tbody
           each value in prj_cur
             tr 
-              td.non_project_name= value.project_name 
+              td #{value.project_name}
               td.non_duration= value.proj_start_date+' ~ '+ value.proj_end_date
               td.non_organization= value.project_organization
               td.non_budget= value.budget 
