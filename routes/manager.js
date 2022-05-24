@@ -37,19 +37,24 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         where: [{ id: search_key }],
         include: [{ model: Dept }],
       });
-      const proj_all = await Emp_Proj.findAll({
-        include: [
-          { model: Employee, where: { id: search_key } },
-          { model: Project },
-          { model: Role },
-        ],
-      });
-      res.render("manager/searchEmployeeProject", {
-        title: "searchEmployeeProject",
-        state: req.state,
-        result: initemp,
-        result2: proj_all,
-      });
+      if(initemp){
+        const proj_all = await Emp_Proj.findAll({
+          include: [
+            { model: Employee, where: { id: search_key } },
+            { model: Project },
+            { model: Role },
+          ],
+        });
+        res.render("manager/searchEmployeeProject", {
+          title: "searchEmployeeProject",
+          state: req.state,
+          result: initemp,
+          result2: proj_all,
+        });
+      } else {
+        console.log("Id doesn't exist.");
+        return res.send(`<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 아이디입니다.');</script>`)
+      }
     } catch (error) {
       console.error(error);
       return next(error);
@@ -60,19 +65,24 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         where: [{ emp_name: search_key }],
         include: [{ model: Dept }],
       });
-      const proj_all = await Emp_Proj.findAll({
-        include: [
-          { model: Employee, where: { emp_name: search_key } },
-          { model: Project },
-          { model: Role },
-        ],
-      });
-      res.render("manager/searchEmployeeProject", {
-        title: "searchEmployee",
-        state: req.state,
-        result: initemp,
-        result2: proj_all,
-      });
+      if(initemp){
+        const proj_all = await Emp_Proj.findAll({
+          include: [
+            { model: Employee, where: { emp_name: search_key } },
+            { model: Project },
+            { model: Role },
+          ],
+        });
+        res.render("manager/searchEmployeeProject", {
+          title: "searchEmployee",
+          state: req.state,
+          result: initemp,
+          result2: proj_all,
+        });
+      } else {
+        console.log("Name doesn't exist.");
+        return res.send(`<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 이름입니다.');</script>`)
+      }
     } catch (error) {
       console.error(error);
       return next(error);
