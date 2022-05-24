@@ -11,7 +11,6 @@ router.use(isLoggedIn);
 //프로젝트 등록 & PM 등록
 router.post("/createProject", async (req, res, next) => {
   const { name, start_date, end_date, organization, budget } = req.body;
-  console.log(name, start_date, end_date, organization, budget);
   try {
     //프로젝트 등록부분
     const new_proj = await Project.create({
@@ -21,7 +20,6 @@ router.post("/createProject", async (req, res, next) => {
       budget,
       project_organization: organization,
     });
-    console.log(new_proj);
     //PM 등록부분
     const Role_id = 2;
     const proj_PM = await Emp_Proj.create({
@@ -31,7 +29,6 @@ router.post("/createProject", async (req, res, next) => {
       Employee_number: req.user.id,
       Project_id: new_proj.id,
     });
-    console.log(proj_PM);
     return res.redirect("/");
   } catch (error) {
     console.error(error);
@@ -80,8 +77,6 @@ router.get("/pm/project/:id", async (req, res, next) => {
 // 요구사항 11번) PM은 프로젝트 정보를 수정할 수 있다.
 // PM - 프로젝트 업데이트
 router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
-  console.log("--------------------------");
-  console.log(req.params.id);
   try {
     const currentProj = await Project.findOne({ where: { id: req.params.id } });
     const employeeList = await Emp_Proj.findAll({
@@ -105,6 +100,10 @@ router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
     console.error(error);
     return next(error);
   }
+});
+
+router.post("/pm/project/:id/update", async (req, res, next) => {
+  res.end();
 });
 
 module.exports = router;

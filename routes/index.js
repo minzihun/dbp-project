@@ -1,9 +1,10 @@
 var express = require("express");
 var router = express.Router();
-const { Employee, Manager, Project } = require("../models");
+const { Employee, Project, Emp_Proj, Role } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
+const { myDate, equalDate } = require("./date");
 
 // 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(프로젝트 기본 내용 부분)
@@ -108,52 +109,59 @@ router.post("/checkId", async (req, res, next) => {
 });
 
 //관리 미들웨어 확인용(지울 것)
-const { isAdmin } = require("./middlewares");
-const { Emp_Proj, Dept, Role } = require("../models");
-router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
-  const participate = await Emp_Proj.findAll();
-  const dept = await Dept.findAll();
-  const project = await Project.findAll();
-  const role = await Role.findAll();
-  console.log(participate, dept, project, role);
-  res.send(req.user);
-});
+// const { isAdmin } = require("./middlewares");
+// const { Dept, Role } = require("../models");
+// router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
+//   const participate = await Emp_Proj.findAll();
+//   const dept = await Dept.findAll();
+//   const project = await Project.findAll();
+//   const role = await Role.findAll();
+//   console.log(participate, dept, project, role);
+//   res.send(req.user);
+// });
 
 // 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(참가 부분)
 /* 참가 */
 router.post("/participateProj", async (req, res, next) => {
-  console.log("참가");
   const { non_project_name, non_duration, non_organization, non_budget } =
     req.body;
-  // const proj_start_date = new Date(non_duration.replace(" ", "").split("~")[0]);
-  // console.log(proj_start_date);
-  // console.log(non_project_name, non_duration, non_organization, non_budget);
-  const participateProject = await Project.findOne({
-    attributes: ["id", "proj_end_date"],
-    where: { project_name: non_project_name },
-  });
-  console.log(participateProject.id);
-  // const Project_id = await Project.findOne({ where: { project_name } });
-  // const Project_id = req.params.prj;
-  // const Employee_number = req.user.id;
-  // const Project = await Project.findOne({ where: { id: Project_id } });
-  const result = await Emp_Proj.create({
-    part_start_date: Date.now(),
-    part_end_date: participateProject.proj_end_date,
-    Role_id: 1,
-    Employee_number: req.user.id,
-    Project_id: participateProject.id,
-  });
-  console.log("result");
-  res.redirect("/");
+  const proj_start_date = new Date(non_duration.replace(" ", "").split("~")[0]);
+  const proj_end_date = new Date(non_duration.replace(" ", "").split("~")[1]);
+  const now = new Date();
+
+  // console.log(
+  //   `프로젝트 시작일: ${proj_start_date}, 프로젝트 종료일: ${proj_end_date}, 현재일자: ${now}`
+  // );
+  // console.log(
+  //   `시작일>현재?: ${
+  //     proj_start_date > now
+  //   }=>true면 프로젝트 참가일은 프로젝트 시작일`
+  // );
+  // console.log(`종료일<현재?${proj_end_date < now}=>true면 참가불가`);
+  if (proj_end_date < now) {
+    res.status(400).json("참가할 수 없습니다.");
+  } else {
+    const participateProject = await Project.findOne({
+      attributes: ["id", "proj_end_date"],
+      where: { project_name: non_project_name },
+    });
+    const part_start_date = proj_start_date > now ? proj_start_date : now;
+    const result = await Emp_Proj.create({
+      part_start_date,
+      part_end_date: participateProject.proj_end_date,
+      Role_id: 1,
+      Employee_number: req.user.id,
+      Project_id: participateProject.id,
+    });
+    res.end();
+  }
 });
 
 // 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(참가중지 부분)
 /* 참가 중지 */
 router.post("/stopProj", async (req, res, next) => {
-  console.log("참가 중지");
   const {
     project_name,
     duration,
@@ -162,22 +170,68 @@ router.post("/stopProj", async (req, res, next) => {
     budget,
     role,
   } = req.body;
-  const participateProject = await Project.findOne({
-    attributes: ["id"],
-    where: { project_name },
-  });
-  console.log(participateProject.id);
+  console.log(duration, participate_term);
+  const durationList = duration.replace(" ", "").split("~");
+  const partdurationList = participate_term.replace(" ", "").split("~");
+  const proj_start_date = new Date(durationList[0]);
+  const proj_end_date = new Date(durationList[1]);
+  const part_start_date = new Date(partdurationList[0]);
+  const part_end_date = new Date(partdurationList[1]);
+  const now = new Date();
+  // console.log(durationList, partdurationList);
+  // console.log(durationList[0], durationList[1]);
+  // console.log(partdurationList[0], partdurationList[1]);
+  // console.log("**************************************************************");
+  // console.log(
+  //   `프로젝트 종료 일자 ${proj_end_date} 참가 종료 일자${part_end_date}
+  //   프로젝트 시작 일자 ${proj_start_date} 참가일자 ${part_start_date}`
+  // );
+  // console.log(proj_end_date == part_end_date);
 
-  const result = await Emp_Proj.update(
-    { part_end_date: Date.now() },
-    {
-      where: {
-        Project_id: participateProject.id,
-        Employee_number: req.user.id,
-      },
-    }
-  );
-  console.log(result);
-  res.end();
+  if (!equalDate(proj_end_date, part_end_date) || role == "PM") {
+    res.send("참가 중지할 수 없습니다");
+  } else if (now < proj_start_date) {
+    const part = await Emp_Proj.findOne({
+      include: [
+        {
+          model: Employee,
+          attributes: ["id"],
+          where: { id: req.user.id },
+        },
+        {
+          model: Project,
+          where: { project_name },
+        },
+      ],
+    });
+    await Emp_Proj.destroy({
+      where: { id: part.id },
+    });
+    res.send("삭제됩니다.");
+  } else {
+    const participateProject = await Project.findOne({
+      attributes: ["id"],
+      where: { project_name },
+    });
+    await Emp_Proj.update(
+      { part_end_date: myDate(Date.now()) },
+      {
+        where: {
+          Project_id: participateProject.id,
+          Employee_number: req.user.id,
+        },
+      }
+    );
+    res.end();
+  }
+});
+
+router.get("/project", async (req, res, next) => {
+  const projects = await Project.findAll();
+  res.send(projects);
+});
+router.get("/empProj", async (req, res, next) => {
+  const emp_proj = await Emp_Proj.findAll();
+  res.send(emp_proj);
 });
 module.exports = router;

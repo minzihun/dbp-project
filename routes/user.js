@@ -1,8 +1,6 @@
 const getUser = (raw_data) => {
   const { id, emp_ID, emp_name, emp_final_edu, skill, career, Dept_id } =
     raw_data;
-  console.log("********************");
-  console.log(Dept_id);
   const dept = getDept(Dept_id);
   const current_user = {
     id,

@@ -2,7 +2,7 @@ extends ../layout
 
 //- 경영진 프로젝트 상세페이지 수정
 block content
-  form(action=`/man/project/${id}/update`, method="POST")
+  form(action=`/manager/project/${currentProj.id}/update`, method="POST")
     div.mr-3.ml-3
       h1.text-center.mt-5 프로젝트 상세
       section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
