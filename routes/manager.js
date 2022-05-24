@@ -37,7 +37,7 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         where: [{ id: search_key }],
         include: [{ model: Dept }],
       });
-      if(initemp){
+      if (initemp) {
         const proj_all = await Emp_Proj.findAll({
           include: [
             { model: Employee, where: { id: search_key } },
@@ -53,7 +53,9 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         });
       } else {
         console.log("Id doesn't exist.");
-        return res.send(`<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 아이디입니다.');</script>`)
+        return res.send(
+          `<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 아이디입니다.');</script>`
+        );
       }
     } catch (error) {
       console.error(error);
@@ -65,7 +67,7 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         where: [{ emp_name: search_key }],
         include: [{ model: Dept }],
       });
-      if(initemp){
+      if (initemp) {
         const proj_all = await Emp_Proj.findAll({
           include: [
             { model: Employee, where: { emp_name: search_key } },
@@ -81,7 +83,9 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         });
       } else {
         console.log("Name doesn't exist.");
-        return res.send(`<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 이름입니다.');</script>`)
+        return res.send(
+          `<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 이름입니다.');</script>`
+        );
       }
     } catch (error) {
       console.error(error);
@@ -107,18 +111,23 @@ router.post("/manageAllProject", async function (req, res, next) {
   let { start_date, end_date } = req.body;
   start_date = new Date(start_date);
   end_date = new Date(end_date);
-
-  const projList = await Project.findAll({
-    where: {
-      proj_start_date: { [Op.gte]: start_date },
-      proj_end_date: { [Op.lte]: end_date },
-    },
-  });
-  return res.render("manager/manageAllProject", {
-    title: "manageAllProject",
-    result: projList,
-    state: req.state,
-  });
+  if (end_date < start_date) {
+    return res.send(
+      `<script type="text/javascript">window.location="/manageAllProject";alert('올바르지 않은 입력입니다.');</script>`
+    );
+  } else {
+    const projList = await Project.findAll({
+      where: {
+        proj_start_date: { [Op.gte]: start_date },
+        proj_end_date: { [Op.lte]: end_date },
+      },
+    });
+    return res.render("manager/manageAllProject", {
+      title: "manageAllProject",
+      result: projList,
+      state: req.state,
+    });
+  }
 });
 
 // 경영진 - 프로젝트 상세 페이지로 이동

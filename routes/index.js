@@ -170,7 +170,6 @@ router.post("/stopProj", async (req, res, next) => {
     budget,
     role,
   } = req.body;
-  console.log(duration, participate_term);
   const durationList = duration.replace(" ", "").split("~");
   const partdurationList = participate_term.replace(" ", "").split("~");
   const proj_start_date = new Date(durationList[0]);
