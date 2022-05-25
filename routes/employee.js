@@ -98,6 +98,7 @@ router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
   }
 });
 
+// 요구사항 11번)
 router.post("/pm/project/:id/update", isPM, async (req, res, next) => {
   const {
     project_name,
@@ -108,13 +109,7 @@ router.post("/pm/project/:id/update", isPM, async (req, res, next) => {
     employee_id,
     employee_role,
   } = req.body;
-  console.log(
-    project_name,
-    proj_start_date,
-    proj_end_date,
-    project_organization,
-    budget
-  );
+
   await Project.update(
     {
       project_name,
@@ -125,31 +120,34 @@ router.post("/pm/project/:id/update", isPM, async (req, res, next) => {
     },
     { where: { id: req.params.id } }
   );
-  employee_id.forEach(async (element, index) => {
-    if (index != 0) {
-      let Role_id;
-      switch (employee_role[index - 1]) {
-        case "pl":
-          Role_id = 3;
-          break;
-        case "analyst":
-          Role_id = 4;
-          break;
-        case "designer":
-          Role_id = 5;
-          break;
-        default:
-          Role_id = 1;
-      }
-
-      const result = await Emp_Proj.update(
-        { Role_id },
-        {
-          where: { Employee_number: element, Project_id: req.params.id },
-        }
-      );
-      console.log(result);
+  const employee_ids = employee_id.slice(1);
+  let employee_roles = [];
+  if (!Array.isArray(employee_role)) {
+    employee_roles.push(employee_role);
+  } else {
+    employee_roles = employee_role;
+  }
+  employee_ids.forEach(async (element, index) => {
+    let Role_id;
+    switch (employee_roles[index]) {
+      case "pl":
+        Role_id = 3;
+        break;
+      case "analyst":
+        Role_id = 4;
+        break;
+      case "designer":
+        Role_id = 5;
+        break;
+      default:
+        Role_id = 1;
     }
+    const result = await Emp_Proj.update(
+      { Role_id },
+      {
+        where: { Employee_number: element, Project_id: req.params.id },
+      }
+    );
   });
   res.redirect(`/employee/pm/project/${req.params.id}`);
 });
