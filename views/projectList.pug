@@ -22,7 +22,7 @@ block projectList
                 td
                   a.project_name(href=`/employee/pm/project/${value.Project.id}`)= value.Project.project_name
                 td.duration= value.Project.proj_start_date+' ~ '+ value.Project.proj_end_date
-                td.participate= value.part_start_date+' ~ '+value.part_end_date
+                td.participate= value.part_start_date.slice(0,-8)+' ~ '+value.part_end_date.slice(0,-8)
                 td.organization= value.Project.project_organization
                 td.budget= value.Project.budget 
                 td.role= value.Role.role_name 
