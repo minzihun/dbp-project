@@ -109,7 +109,7 @@ router.post("/manageAllProject", async function (req, res, next) {
   end_date = new Date(end_date);
   if (end_date < start_date) {
     return res.send(
-      `<script type="text/javascript">window.location="/manageAllProject";alert('올바르지 않은 입력입니다.');</script>`
+      `<script type="text/javascript">window.location="/manager/manageAllProject";alert('올바르지 않은 입력입니다.');</script>`
     );
   } else {
     const projList = await Project.findAll({
