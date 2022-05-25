@@ -2,8 +2,7 @@ extends ../layout
 
 //- 직원 검색 페이지
 block content
-  h1.text-center.mt-5 Employee
-  //- 직원 검색
+  h1.text-center.mt-5 직원 검색
   div.float-right
     nav.navbar.navbar-light.mt-4.mb-3
       form.form-inline(action='/manager/searchEmployeeProject', method='post')
@@ -14,7 +13,7 @@ block content
         input.form-control.mr-sm-2(type="text" name="search_key" placeholder="Search" aria-label="Search")
         button.btn.btn-outline-secondary.my-2.my-sm-0(type="submit") 검색
 
-  //- 검색 전 모든 직원 정보 보여줌, 검색 후 검색된 직원 정보만 보여줌
+  //- 검색 전 모든 직원 정보 보여줌
   div
     table.table.pull-center.table-hover(style="width: 100%; margin: auto")
       thead.thead-light

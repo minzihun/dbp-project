@@ -38,20 +38,3 @@ block content
                      
             
             a.btn.btn-black.btn-empty(href='/updateMyInfo', style='float: right') 수정
-              //- if state === 'developer'
-              //-   .col-12.col-sm-6.pt-3.pt-sm-0
-              //-     h3
-              //-       strong Join Company Date 
-              //-         p.text-h3.ml-3
-              //-           | #{moment(user.JOIN_COMPANY_DATE).format('YYYY-MM-DD')}
-              //-   .col-12.col-sm-6.pt-3.pt-sm-0
-              //-     h3
-              //-       strong Work Experience
-              //-         p.text-h3.ml-3
-              //-           | #{moment.duration(moment(new Date()).diff(user.JOIN_COMPANY_DATE)).asMonths().toFixed(2)}개월
-              //-   .col-12.col-sm-12.pt-3.pt-sm-0
-              //-     h3
-              //-       strong Skill
-              //-         p.text-h3.ml-3
-              //-           | #{user.SKILL === null ? '' : user.SKILL}
-              //- .col-12.col-sm-12.pt-3.pt-sm-0

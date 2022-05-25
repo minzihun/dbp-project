@@ -1,35 +1,34 @@
 extends ../layout
 
-//- 경영진 프로젝트 상세페이지 수정
+//- 경영진 프로젝트 수정 페이지
 block content
   form(action=`/manager/project/${currentProj.id}/update`, method="POST")
     div.mr-3.ml-3
-      h1.text-center.mt-5 프로젝트 상세
+      h1.text-center.mt-5 프로젝트 수정
       section.fdb-block.fp-active(data-block-type="contents" data-id="1" draggable="true")
         .container
-          .row.text-left.align-items-center
-            .col-10.col-lg-8.pt-4.pt-lg-0
-              .row.mt-3
-                .col-12.col-sm-6.pt-3.pt-sm-0
-                  h3
-                    strong 프로젝트명
-                      input.form-control.text-h3.ml-3(type="text", name="projectname" value=`${currentProj.project_name}`)
-                .col-12.col-sm-6.pt-3.pt-sm-0
-                  h3
-                    strong 프로젝트 착수일자
-                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.proj_start_date}`)
-                .col-12.col-sm-6.pt-3.pt-sm-0
-                  h3
-                    strong 프로젝트 종료일자
-                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.proj_end_date}`)
-                .col-12.col-sm-6.pt-3.pt-sm-0
-                  h3
-                    strong 발주처
-                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.project_organization}`)
-                .col-12.col-sm-6.pt-3.pt-sm-0
-                  h3
-                    strong 예산
-                      input.form-control.text-h3.ml-3(type="text", name="" value=`${currentProj.budget}`)
+          .row.text-left.align-items-center.mt-3
+            .col
+              h3
+                strong 프로젝트명
+                  input.form-control.text-h3(type="text", name="projectname" value=`${currentProj.project_name}`)
+            .col
+              h3
+                strong 프로젝트 착수일자
+                  input.form-control.text-h3(type="text", name="" value=`${currentProj.proj_start_date}`)
+            .col
+              h3
+                strong 프로젝트 종료일자
+                  input.form-control.text-h3(type="text", name="" value=`${currentProj.proj_end_date}`)
+            .col
+              h3
+                strong 발주처
+                  input.form-control.text-h3(type="text", name="" value=`${currentProj.project_organization}`)
+            .col
+              h3
+                strong 예산
+                  input.form-control.text-h3(type="text", name="" value=`${currentProj.budget}`)
+
         .row.mt-4
         h2.ml-3.mt-5 참여 직원
         .row.align-items-center.mt-2
@@ -49,16 +48,3 @@ block content
                   td #{value.part_start_date}
                   td #{value.part_end_date}
     button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
-                //- each value in pi
-                //-   tr
-                //-     td
-                //-       a(href=`/management/detail/`)
-                //-     td=value[2]
-                //-     td=moment(value[3]).format('YYYY-MM-DD')
-                //-     if value[4] === null
-                //-       td(style="float: center")
-                //-         button.btn.btn-outline-dark(type="button" onclick=`location.href='/management/outToPrj/${pNum}/${value[0]}/'`) 방출하기
-                //-     else
-                //-       td=moment(value[4]).format('YYYY-MM-DD')
-                //-     td=value[5]
-                  //- TODO: 평가 관련 정보

@@ -1,3 +1,4 @@
+//- 메인 페이지
 block projectList
   h1.text-center.mt-5 프로젝트
   .row.mr-0
@@ -16,7 +17,7 @@ block projectList
             th(scope="col") 참가여부
         tbody
           each value in prj_before
-            tr 
+            tr
               if(value.Role.role_name=='PM')
                 td
                   a.project_name(href=`/employee/pm/project/${value.Project.id}`)= value.Project.project_name
@@ -26,7 +27,7 @@ block projectList
                 td.budget= value.Project.budget 
                 td.role= value.Role.role_name 
                 td
-                  button.stop 참가중지
+                  button.btn.btn-outline-secondary.stop 참가중지
               else
                 td.project_name #{value.Project.project_name}
                 td.duration= value.Project.proj_start_date+' ~ '+ value.Project.proj_end_date
@@ -35,18 +36,8 @@ block projectList
                 td.budget= value.Project.budget 
                 td.role= value.Role.role_name 
                 td
-                  button.stop 참가중지
-          //-   tr
-          //-     td= value[0]
-          //-     td= value[1]
-          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
-          //-     td= value[4]
-          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
-          //-     if value[6] !== null
-          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
-          //-     else
-          //-       td X
-          //-     td= value[7]
+                  button.btn.btn-outline-secondary.stop 참가중지
+
   .row.mr-0
     .col-sm-12
       h2.ml-5.mt-5 미참가 프로젝트
@@ -67,17 +58,7 @@ block projectList
               td.non_organization= value.project_organization
               td.non_budget= value.budget 
               td
-                button.participate 참가
-          //-   tr
-          //-     td= value[0]
-          //-     td= value[1]
-          //-     td #{moment(value[2]).format('YYYY-MM-DD') + ' ~ ' + moment(value[3]).format('YYYY-MM-DD')}
-          //-     td= value[4]
-          //-     td #{moment(value[5]).format('YYYY-MM-DD')}
-          //-     if value[6] !== null
-          //-       td #{moment(value[6]).format('YYYY-MM-DD')}
-          //-     else
-          //-       td X
-          //-     td= value[7]
+                button.btn.btn-outline-secondary.participate 참가
+                
   script(src="https://unpkg.com/axios/dist/axios.min.js")
   script(src="/javascripts/projectList.js")
