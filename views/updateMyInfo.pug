@@ -1,6 +1,6 @@
 extends layout
 
-//- 마이 페이지 수정
+//- 회원정보 수정 페이지
 block content
     form(action='/updateMyInfo', method="POST")
         div(name="mypage")
@@ -38,20 +38,3 @@ block content
                                     option(value='개발 3팀') 개발 3팀
                     
                     button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
-                        //- if state === 'developer'
-                        //-   .col-12.col-sm-6.pt-3.pt-sm-0
-                        //-     h3
-                        //-       strong Join Company Date 
-                        //-         p.text-h3.ml-3
-                        //-           | #{moment(user.JOIN_COMPANY_DATE).format('YYYY-MM-DD')}
-                        //-   .col-12.col-sm-6.pt-3.pt-sm-0
-                        //-     h3
-                        //-       strong Work Experience
-                        //-         p.text-h3.ml-3
-                        //-           | #{moment.duration(moment(new Date()).diff(user.JOIN_COMPANY_DATE)).asMonths().toFixed(2)}개월
-                        //-   .col-12.col-sm-12.pt-3.pt-sm-0
-                        //-     h3
-                        //-       strong Skill
-                        //-         p.text-h3.ml-3
-                        //-           | #{user.SKILL === null ? '' : user.SKILL}
-                        //- .col-12.col-sm-12.pt-3.pt-sm-0

@@ -1,42 +1,36 @@
 extends ../layout
 
-//- 프로젝트 검색
+//- 프로젝트 검색 페이지
 block content
-  h1.text-center.mt-5 모든 프로젝트
-  .row.mr-0
-    nav.navbar.navbar-light()
-      form.form-inline(action='/manager/manageAllProject', method='post')
-        .row.align-items-center.mr-0
-          .col
-            h2.text-center.mt-5 프로젝트착수일자
-            input.form-control(type="date", name="start_date")
-        .row.align-items-center.mr-0
-          .col
-            h2.text-center.mt-5 프로젝트종료일자
-            input.form-control(type="date", name="end_date")
-          button.btn.btn-outline-secondary.my-2.my-sm-0.mr-auto(type="submit") 검색
+  h1.text-center.mt-5 프로젝트 관리
+  div.float-right
+    .container
+      .row.justify-content-end.mt-4.mb-3
+        form.form-inline(action='/manager/manageAllProject', method='post')
+          .row.align-items-center.mr-0
+            .col-md-auto
+              h4.text-center.mt-1 프로젝트 착수일자
+            .col-md-auto
+              input.form-control(type="date", name="start_date")
+            .col-md-auto
+              h4.text-center.mt-1 프로젝트 종료일자
+            .col-md-auto
+              input.form-control(type="date", name="end_date")
+            button.btn.btn-outline-secondary.my-2.my-sm-0.mr-auto(type="submit") 검색
 
-  .row.mr-0
-    .col-sm-12
-      table.table.text-center.ml-5(style="width: 100%;")
-        thead.thead-light
+  div
+    table.table.table.pull-center.table-hover.text-center(style="width: 100%;")
+      thead.thead-light
+        tr
+          th(scope="col") 프로젝트명
+          th(scope="col") 프로젝트 진행기간
+          th(scope="col") 발주처
+          th(scope="col") 예산
+      tbody
+        each value in result
           tr
-            th(scope="col") 프로젝트명
-            th(scope="col") 프로젝트 진행기간
-            th(scope="col") 발주처
-            th(scope="col") 예산
-        tbody
-          each value in result
-            tr
-              td 
-                a(href=`/manager/project/${value.id}`)= value.project_name
-              td #{value.proj_start_date}~#{value.proj_end_date}
-              td #{value.project_organization}
-              td #{value.budget}
-
-          //- each value in prj_before
-          //-   tr
-          //-     td
-          //-       a(href=`/management/prj/${value[0]}`)= value[1]
-          //-     td= value[2]
-          //-     td #{moment(value[3]).format('YYYY-MM-DD') + ' ~ ' + moment(value[4]).format('YYYY-MM-DD')}
+            td 
+              a(href=`/manager/project/${value.id}`)= value.project_name
+            td #{value.proj_start_date}~#{value.proj_end_date}
+            td #{value.project_organization}
+            td #{value.budget}
