@@ -141,9 +141,6 @@ router.post("/pm/project/:id/update", isPM, async (req, res, next) => {
         default:
           Role_id = 1;
       }
-      console.log(employee_role[index]);
-      console.log(Role_id);
-      console.log(req.params.id);
 
       const result = await Emp_Proj.update(
         { Role_id },
