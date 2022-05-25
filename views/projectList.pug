@@ -3,9 +3,9 @@ block projectList
   h1.text-center.mt-5 프로젝트
   .row.mr-0
     .col-sm-12
-      h2.ml-5.mt-5 참가 프로젝트
+      h3.ml-3.mt-5 참가 프로젝트
       
-      table#allProjList.table.text-center.ml-5(style="width: 90%;")
+      table#allProjList.table.table.pull-center.table-hover.text-center(style="width: 100%;margin: auto;")
         thead.thead-light
           tr
             th(scope="col") 프로젝트명
@@ -40,8 +40,8 @@ block projectList
 
   .row.mr-0
     .col-sm-12
-      h2.ml-5.mt-5 미참가 프로젝트
-      table.table.text-center.ml-5(style="width: 90%;")
+      h3.ml-3.mt-5 미참가 프로젝트
+      table.table.table.pull-center.table-hover.text-center(style="width: 100%;margin: auto;")
         thead.thead-light
           tr
             th(scope="col") 프로젝트명
