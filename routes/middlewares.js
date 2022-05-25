@@ -83,15 +83,18 @@ exports.isPM = async (req, res, next) => {
 
 exports.getState = async (req, res, next) => {
   if (!req.user) {
-    req.state = "beforeLogin";
+    // req.state = "beforeLogin";
+    res.locals.state = "beforeLogin";
   } else {
     const isAdmin = await Manager.findOne({
       where: { Employee_number: req.user.id },
     });
     if (isAdmin) {
-      req.state = "manager";
+      // req.state = "manager";
+      res.locals.state = "manager";
     } else {
-      req.state = "employee";
+      // req.state = "employee";
+      res.locals.state = "employee";
     }
   }
   next();

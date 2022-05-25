@@ -40,7 +40,6 @@ router.post("/createProject", async (req, res, next) => {
 router.get("/projectList", function (req, res, next) {
   res.render("employee/projectList", {
     title: "projectList",
-    state: req.state,
   });
 });
 
@@ -48,7 +47,6 @@ router.get("/projectList", function (req, res, next) {
 router.get("/createProject", function (req, res, next) {
   res.render("employee/createProject", {
     title: "createProject",
-    state: req.state,
   });
 });
 
@@ -67,7 +65,6 @@ router.get("/pm/project/:id", async (req, res, next) => {
       currentProj,
       employeeList,
       totalEmp: employeeList.length,
-      state: req.state,
     });
   } catch (error) {
     console.error(error);
@@ -94,7 +91,6 @@ router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
       currentProj,
       employeeList,
       totalEmp: employeeList.length,
-      state: req.state,
     });
   } catch (error) {
     console.error(error);
@@ -102,7 +98,7 @@ router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
   }
 });
 
-router.post("/pm/project/:id/update", async (req, res, next) => {
+router.post("/pm/project/:id/update", isPM, async (req, res, next) => {
   const {
     project_name,
     proj_start_date,

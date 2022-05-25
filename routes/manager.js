@@ -16,7 +16,6 @@ router.get("/searchEmployee", async (req, res, next) => {
     });
     res.render("manager/searchEmployee", {
       title: "searchEmployee",
-      state: req.state,
       result: initemp,
     });
   } catch (error) {
@@ -47,7 +46,6 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         });
         res.render("manager/searchEmployeeProject", {
           title: "searchEmployeeProject",
-          state: req.state,
           result: initemp,
           result2: proj_all,
         });
@@ -77,7 +75,6 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
         });
         res.render("manager/searchEmployeeProject", {
           title: "searchEmployee",
-          state: req.state,
           result: initemp,
           result2: proj_all,
         });
@@ -100,7 +97,6 @@ router.get("/manageAllProject", async function (req, res, next) {
   const projList = await Project.findAll();
   res.render("manager/manageAllProject", {
     title: "manageAllProject",
-    state: req.state,
     result: projList,
   });
 });
@@ -125,7 +121,6 @@ router.post("/manageAllProject", async function (req, res, next) {
     return res.render("manager/manageAllProject", {
       title: "manageAllProject",
       result: projList,
-      state: req.state,
     });
   }
 });
@@ -143,7 +138,6 @@ router.get("/project/:id", async function (req, res, next) {
     });
     res.render("manager/manProjectDetail", {
       title: "manProjectDetail",
-      state: req.state,
       currentProj,
       employeeList,
     });
@@ -166,7 +160,6 @@ router.get("/project/:id/update", async function (req, res, next) {
     });
     res.render("manager/updateManProjectDetail", {
       title: "updateManProjectDetail",
-      state: req.state,
       currentProj,
       employeeList,
     });
@@ -177,5 +170,62 @@ router.get("/project/:id/update", async function (req, res, next) {
 });
 
 // 요구사항 12번) 경영진은 프로젝트 예산을 조정할 수 있다.
-router.post("/project/:id/update", async (req, res, next) => {});
+router.post("/project/:id/update", async (req, res, next) => {
+  const {
+    project_name,
+    proj_start_date,
+    proj_end_date,
+    project_organization,
+    budget,
+    employee_id,
+    employee_role,
+  } = req.body;
+  console.log(
+    project_name,
+    proj_start_date,
+    proj_end_date,
+    project_organization,
+    budget
+  );
+  await Project.update(
+    {
+      project_name,
+      proj_start_date,
+      proj_end_date,
+      budget,
+      project_organization,
+    },
+    { where: { id: req.params.id } }
+  );
+  employee_id.forEach(async (element, index) => {
+    if (index != 0) {
+      let Role_id;
+      switch (employee_role[index - 1]) {
+        case "pl":
+          Role_id = 3;
+          break;
+        case "analyst":
+          Role_id = 4;
+          break;
+        case "designer":
+          Role_id = 5;
+          break;
+        default:
+          Role_id = 1;
+      }
+      console.log(employee_role[index]);
+      console.log(Role_id);
+      console.log(req.params.id);
+
+      const result = await Emp_Proj.update(
+        { Role_id },
+        {
+          where: { Employee_number: element, Project_id: req.params.id },
+        }
+      );
+      console.log(result);
+    }
+  });
+  res.redirect(`/manager/project/${req.params.id}`);
+});
 module.exports = router;

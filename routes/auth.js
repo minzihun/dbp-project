@@ -32,15 +32,6 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
       );
     } else {
       const hash = await bcrypt.hash(password, 12);
-      console.log({
-        id,
-        hash,
-        name,
-        resident_number,
-        final_edu,
-        skill,
-        career,
-      });
       await Employee.create({
         emp_ID: id,
         emp_PW: hash,
@@ -70,7 +61,6 @@ router.get("/signup", isNotLoggedIn, async function (req, res, next) {
 //로그인
 router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("employeeLocal", (authError, user, info) => {
-    console.log(user);
     if (authError) {
       console.error(authError);
       return next(authError);
@@ -105,6 +95,10 @@ router.get("/signout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect("/");
+  // req.logout(()=>{
+  //   req.session.destroy();
+  //   res.redirect("/")
+  // })
 });
 
 module.exports = router;

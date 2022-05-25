@@ -10,10 +10,10 @@ const { myDate, equalDate } = require("./date");
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(프로젝트 기본 내용 부분)
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  console.log(req.state);
+  console.log(res.locals.state);
   let participate = null;
   let non_participate = null;
-  if (req.state != "beforeLogin") {
+  if (res.locals.state != "beforeLogin") {
     participate = await Emp_Proj.findAll({
       include: [
         {
@@ -40,7 +40,6 @@ router.get("/", async (req, res, next) => {
   }
   res.render("index", {
     title: "Express",
-    state: req.state,
     prj_before: participate,
     prj_cur: non_participate,
   });
@@ -51,7 +50,7 @@ router.get("/mypage", isLoggedIn, function (req, res, next) {
   const current_user = getUser(req.user);
   const emp_ID = current_user.emp_ID;
 
-  res.render("mypage", { title: "Mypage", state: req.state, current_user });
+  res.render("mypage", { title: "Mypage", current_user });
 });
 
 /* GET mypageupdate */
@@ -59,7 +58,6 @@ router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
   res.render("updateMyInfo", {
     title: "Mypage",
-    state: req.state,
     current_user,
   });
 });
@@ -108,18 +106,6 @@ router.post("/checkId", async (req, res, next) => {
   }
 });
 
-//관리 미들웨어 확인용(지울 것)
-// const { isAdmin } = require("./middlewares");
-// const { Dept, Role } = require("../models");
-// router.get("/isadmin", isLoggedIn, isAdmin, async (req, res, next) => {
-//   const participate = await Emp_Proj.findAll();
-//   const dept = await Dept.findAll();
-//   const project = await Project.findAll();
-//   const role = await Role.findAll();
-//   console.log(participate, dept, project, role);
-//   res.send(req.user);
-// });
-
 // 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(참가 부분)
 /* 참가 */
@@ -130,15 +116,6 @@ router.post("/participateProj", async (req, res, next) => {
   const proj_end_date = new Date(non_duration.replace(" ", "").split("~")[1]);
   const now = new Date();
 
-  // console.log(
-  //   `프로젝트 시작일: ${proj_start_date}, 프로젝트 종료일: ${proj_end_date}, 현재일자: ${now}`
-  // );
-  // console.log(
-  //   `시작일>현재?: ${
-  //     proj_start_date > now
-  //   }=>true면 프로젝트 참가일은 프로젝트 시작일`
-  // );
-  // console.log(`종료일<현재?${proj_end_date < now}=>true면 참가불가`);
   if (proj_end_date < now) {
     res.status(400).json("참가할 수 없습니다.");
   } else {
@@ -177,15 +154,6 @@ router.post("/stopProj", async (req, res, next) => {
   const part_start_date = new Date(partdurationList[0]);
   const part_end_date = new Date(partdurationList[1]);
   const now = new Date();
-  // console.log(durationList, partdurationList);
-  // console.log(durationList[0], durationList[1]);
-  // console.log(partdurationList[0], partdurationList[1]);
-  // console.log("**************************************************************");
-  // console.log(
-  //   `프로젝트 종료 일자 ${proj_end_date} 참가 종료 일자${part_end_date}
-  //   프로젝트 시작 일자 ${proj_start_date} 참가일자 ${part_start_date}`
-  // );
-  // console.log(proj_end_date == part_end_date);
 
   if (!equalDate(proj_end_date, part_end_date) || role == "PM") {
     res.send("참가 중지할 수 없습니다");
@@ -225,12 +193,4 @@ router.post("/stopProj", async (req, res, next) => {
   }
 });
 
-router.get("/project", async (req, res, next) => {
-  const projects = await Project.findAll();
-  res.send(projects);
-});
-router.get("/empProj", async (req, res, next) => {
-  const emp_proj = await Emp_Proj.findAll();
-  res.send(emp_proj);
-});
 module.exports = router;
