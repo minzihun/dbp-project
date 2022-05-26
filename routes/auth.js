@@ -10,7 +10,7 @@ var router = express.Router();
 // 기 등록된 id로 회원가입 신청을 할 경우 에러 메시지를 출력하고
 // 중복되지 않은 신규 id를 입력할 수 있어야 한다.
 // 회원가입
-router.post("/signup", isNotLoggedIn, async function (req, res, next) {
+router.post("/signup", isNotLoggedIn, async (req, res, next) => {
   const {
     id,
     password,
@@ -26,7 +26,6 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
     const exEmp = await Employee.findOne({ where: { emp_ID: id } });
     // 기등록된 id의 경우 에러 메시지 출력
     if (exEmp) {
-      console.log("이미 있는 사용자입니다.");
       return res.send(
         `<script type="text/javascript">window.location="/auth/signup";alert('이미 있는 사용자입니다.');</script>`
       );
@@ -49,7 +48,8 @@ router.post("/signup", isNotLoggedIn, async function (req, res, next) {
     return next(err);
   }
 });
-router.get("/signup", isNotLoggedIn, async function (req, res, next) {
+// 회원가입 화면
+router.get("/signup", isNotLoggedIn, async (req, res, next) => {
   try {
     res.render("signup", { title: "Signup" });
   } catch (error) {
@@ -60,7 +60,7 @@ router.get("/signup", isNotLoggedIn, async function (req, res, next) {
 // 요구사항 1번) 사용자는 아이디와 비밀번호로 로그인할 수 있다.
 //로그인
 router.post("/login", isNotLoggedIn, (req, res, next) => {
-  passport.authenticate("employeeLocal", (authError, user, info) => {
+  passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       console.error(authError);
       return next(authError);
@@ -81,8 +81,8 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
   })(req, res, next);
 });
 
-//로그인 화면 렌더
-router.get("/login", isNotLoggedIn, function (req, res, next) {
+//로그인 화면
+router.get("/login", isNotLoggedIn, (req, res, next) => {
   try {
     res.render("login", { title: "Login" });
   } catch (error) {
@@ -95,10 +95,9 @@ router.get("/signout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect("/");
-  // req.logout(()=>{
-  //   req.session.destroy();
-  //   res.redirect("/")
-  // })
+  // req.logout(() => {
+  //   res.redirect("/");
+  // });
 });
 
 module.exports = router;

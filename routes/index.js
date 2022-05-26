@@ -10,7 +10,6 @@ const { myDate, equalDate } = require("./date");
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(프로젝트 기본 내용 부분)
 /* GET home page. */
 router.get("/", async (req, res, next) => {
-  console.log(res.locals.state);
   let participate = null;
   let non_participate = null;
   if (res.locals.state != "beforeLogin") {
@@ -46,7 +45,7 @@ router.get("/", async (req, res, next) => {
 });
 
 /* GET mypage */
-router.get("/mypage", isLoggedIn, function (req, res, next) {
+router.get("/mypage", isLoggedIn, (req, res, next) => {
   const current_user = getUser(req.user);
   const emp_ID = current_user.emp_ID;
 

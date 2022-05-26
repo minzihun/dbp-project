@@ -37,14 +37,14 @@ router.post("/createProject", async (req, res, next) => {
 });
 
 // 직원- 프로젝트 관리
-router.get("/projectList", function (req, res, next) {
+router.get("/projectList", (req, res, next) => {
   res.render("employee/projectList", {
     title: "projectList",
   });
 });
 
 // 직원- 프로젝트 등록
-router.get("/createProject", function (req, res, next) {
+router.get("/createProject", (req, res, next) => {
   res.render("employee/createProject", {
     title: "createProject",
   });
@@ -73,7 +73,7 @@ router.get("/pm/project/:id", async (req, res, next) => {
 });
 // 요구사항 11번) PM은 프로젝트 정보를 수정할 수 있다.
 // PM - 프로젝트 업데이트
-router.get("/pm/project/:id/update", isPM, async function (req, res, next) {
+router.get("/pm/project/:id/update", isPM, async (req, res, next) => {
   try {
     const currentProj = await Project.findOne({ where: { id: req.params.id } });
     const employeeList = await Emp_Proj.findAll({

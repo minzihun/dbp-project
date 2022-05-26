@@ -28,7 +28,6 @@ router.get("/searchEmployee", async (req, res, next) => {
 router.post("/searchEmployeeProject", async (req, res, next) => {
   var selected_search_key = req.body.selected_search_key;
   var search_key = req.body.search_key;
-  console.log(selected_search_key, search_key);
 
   if (selected_search_key == "id") {
     try {
@@ -50,7 +49,6 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
           result2: proj_all,
         });
       } else {
-        console.log("Id doesn't exist.");
         return res.send(
           `<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 아이디입니다.');</script>`
         );
@@ -79,7 +77,6 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
           result2: proj_all,
         });
       } else {
-        console.log("Name doesn't exist.");
         return res.send(
           `<script type="text/javascript">window.location="/manager/searchEmployee";alert('존재하지 않는 이름입니다.');</script>`
         );
@@ -172,7 +169,6 @@ router.get("/project/:id/update", async function (req, res, next) {
 // 요구사항 12번) 경영진은 프로젝트 예산을 조정할 수 있다.
 router.post("/project/:id/update", async (req, res, next) => {
   const { budget } = req.body;
-  console.log(budget);
   await Project.update(
     {
       budget,

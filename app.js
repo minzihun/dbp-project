@@ -51,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //- Router
-app.use("*", getState);
+app.use(getState);
 app.use("/", indexRouter);
 app.use("/employee", employeeRouter);
 app.use("/manager", managerRouter);

@@ -1,4 +1,3 @@
-const { Manager } = require("../models");
 const { Emp_Proj } = require("../models");
 
 /*회원가입, 로그인, 로그아웃 라우터*/
@@ -38,12 +37,7 @@ exports.isNotLoggedIn = (req, res, next) => {
 };
 
 exports.isAdmin = async (req, res, next) => {
-  // req.flash('errors', {login:"You don't have permission"});
-  // req.logout();
-  // res.redirect('/');
-  const exManager = await Manager.findOne({
-    where: { Employee_number: req.user.id },
-  });
+  const exManager = req.user.Manager;
 
   if (exManager) {
     next();
@@ -83,19 +77,14 @@ exports.isPM = async (req, res, next) => {
 
 exports.getState = async (req, res, next) => {
   if (!req.user) {
-    // req.state = "beforeLogin";
     res.locals.state = "beforeLogin";
   } else {
-    const isAdmin = await Manager.findOne({
-      where: { Employee_number: req.user.id },
-    });
-    if (isAdmin) {
-      // req.state = "manager";
+    if (req.user.Manager) {
       res.locals.state = "manager";
     } else {
-      // req.state = "employee";
       res.locals.state = "employee";
     }
   }
+  console.log(res.locals.state);
   next();
 };
