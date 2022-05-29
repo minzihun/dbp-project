@@ -35,6 +35,6 @@ block content
             td #{value.skill}
             td #{value.career}
 
-  ul.pagination
+  ul.pagination.justify-content-center
     while n < totalPage+1
       a.page-link(href=`searchEmployee?page=${n}`) #{n++}

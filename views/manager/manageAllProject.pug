@@ -35,6 +35,6 @@ block content
             td #{value.project_organization}
             td #{value.budget}
   
-    ul.pagination
+    ul.pagination.justify-content-center
       while n < totalPage+1
         a.page-link(href=`manageAllProject?page=${n}`) #{n++}
