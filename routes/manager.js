@@ -36,6 +36,7 @@ router.get("/searchEmployee", async (req, res, next) => {
       title: "searchEmployee",
       result: initemp,
       totalPage,
+      n: 1
     });
   } catch (error) {
     console.error(error);

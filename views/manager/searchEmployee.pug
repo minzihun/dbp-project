@@ -34,3 +34,7 @@ block content
             td #{value.emp_final_edu}
             td #{value.skill}
             td #{value.career}
+
+  ul.pagination
+    while n < totalPage+1
+      a.page-link(href=`searchEmployee?page=${n}`) #{n++}
