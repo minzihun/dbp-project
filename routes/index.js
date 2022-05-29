@@ -28,6 +28,7 @@ router.get("/", async (req, res, next) => {
           model: Role,
         },
       ],
+      order: [["part_start_date", "DESC"]],
     });
     const participate_proj = participate.map((value) => {
       return value.Project.id;
@@ -36,6 +37,7 @@ router.get("/", async (req, res, next) => {
       where: {
         id: { [Op.notIn]: participate_proj },
       },
+      order: [["proj_start_date", "DESC"]],
     });
   }
   res.render("index", {

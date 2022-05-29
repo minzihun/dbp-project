@@ -15,6 +15,9 @@ router.get("/searchEmployee", async (req, res, next) => {
     let offset = 0;
     const limit = 5;
 
+    let totalPage = await Employee.count();
+    totalPage = Math.ceil(totalPage / limit);
+
     if (page > 1) {
       offset = limit * (page - 1);
     }
@@ -25,9 +28,14 @@ router.get("/searchEmployee", async (req, res, next) => {
       limit,
       order: [["id", "ASC"]],
     });
+
+    //deleteit
+    console.log("==================================");
+    console.log(totalPage);
     res.render("manager/searchEmployee", {
       title: "searchEmployee",
       result: initemp,
+      totalPage,
     });
   } catch (error) {
     console.error(error);
@@ -106,6 +114,9 @@ router.get("/manageAllProject", async function (req, res, next) {
   let offset = 0;
   const limit = 5;
 
+  let totalPage = await Project.count();
+  totalPage = Math.ceil(totalPage / limit);
+
   if (page > 1) {
     offset = limit * (page - 1);
   }
@@ -113,11 +124,19 @@ router.get("/manageAllProject", async function (req, res, next) {
   const projList = await Project.findAll({
     offset,
     limit,
-    order: [["id", "ASC"]],
+    order: [
+      ["proj_start_date", "DESC"],
+      ["proj_end_date", "DESC"],
+    ],
   });
+
+  //deleteit
+  console.log("------------------");
+  console.log(totalPage);
   res.render("manager/manageAllProject", {
     title: "manageAllProject",
     result: projList,
+    totalPage,
   });
 });
 
