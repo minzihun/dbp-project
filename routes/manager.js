@@ -137,6 +137,7 @@ router.get("/manageAllProject", async function (req, res, next) {
     title: "manageAllProject",
     result: projList,
     totalPage,
+    n: 1
   });
 });
 

@@ -34,3 +34,7 @@ block content
             td #{value.proj_start_date}~#{value.proj_end_date}
             td #{value.project_organization}
             td #{value.budget}
+  
+    ul.pagination
+      while n < totalPage+1
+        a.page-link(href=`manageAllProject?page=${n}`) #{n++}
