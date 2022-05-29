@@ -15,11 +15,13 @@ block content
             .col
               h3
                 strong 프로젝트 착수일자
-                  input.form-control.text-h3(type="text", name="proj_start_date" value=`${currentProj.proj_start_date}`)
+                  input.form-control(type="date", name="proj_start_date" value=`${currentProj.proj_start_date}`)
+                  //- input.form-control.text-h3(type="text", name="proj_start_date" value=`${currentProj.proj_start_date}`)
             .col
               h3
                 strong 프로젝트 종료일자
-                  input.form-control.text-h3(type="text", name="proj_end_date" value=`${currentProj.proj_end_date}`)
+                  input.form-control(type="date", name="proj_end_date" value=`${currentProj.proj_end_date}`)
+                  //- input.form-control.text-h3(type="text", name="proj_end_date" value=`${currentProj.proj_end_date}`)
             .col
               h3
                 strong 발주처
@@ -55,7 +57,7 @@ block content
                         option(value='pl') PL
                         option(value='analyst') 분석자
                         option(value='designer') 설계자
-                  td #{value.part_start_date}
-                  td #{value.part_end_date}
+                  td #{value.part_start_date.slice(0,10)}
+                  td #{value.part_end_date.slice(0,10)}
   
     button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료

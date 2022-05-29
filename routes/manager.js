@@ -11,8 +11,19 @@ router.use(isLoggedIn, isAdmin);
 // 경영진 - 직원 정보 검색
 router.get("/searchEmployee", async (req, res, next) => {
   try {
+    let page = req.query.page;
+    let offset = 0;
+    const limit = 5;
+
+    if (page > 1) {
+      offset = limit * (page - 1);
+    }
+
     const initemp = await Employee.findAll({
       include: [{ model: Dept }],
+      offset,
+      limit,
+      order: [["id", "ASC"]],
     });
     res.render("manager/searchEmployee", {
       title: "searchEmployee",
@@ -91,7 +102,19 @@ router.post("/searchEmployeeProject", async (req, res, next) => {
 // 요구사항 6번) 경영진은 관리페이지를 통해 각 프로젝트 진행 상황 관리를 할 수 있다.
 // 경영진 - 프로젝트검색
 router.get("/manageAllProject", async function (req, res, next) {
-  const projList = await Project.findAll();
+  let page = req.query.page;
+  let offset = 0;
+  const limit = 5;
+
+  if (page > 1) {
+    offset = limit * (page - 1);
+  }
+
+  const projList = await Project.findAll({
+    offset,
+    limit,
+    order: [["id", "ASC"]],
+  });
   res.render("manager/manageAllProject", {
     title: "manageAllProject",
     result: projList,
@@ -101,6 +124,14 @@ router.get("/manageAllProject", async function (req, res, next) {
 // 요구사항 7번) 경영진은 관리 페이지에서 기간을 입력하여
 // 그 기간 내에 진행되었던 프로젝트를 볼 수 있다.
 router.post("/manageAllProject", async function (req, res, next) {
+  let page = req.query.page;
+  let offset = 0;
+  const limit = 5;
+
+  if (page > 1) {
+    offset = limit * (page - 1);
+  }
+
   let { start_date, end_date } = req.body;
   start_date = new Date(start_date);
   end_date = new Date(end_date);

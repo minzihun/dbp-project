@@ -27,7 +27,7 @@ router.post("/signup", isNotLoggedIn, async (req, res, next) => {
     // 기등록된 id의 경우 에러 메시지 출력
     if (exEmp) {
       return res.send(
-        `<script type="text/javascript">window.location="/auth/signup";alert('이미 있는 사용자입니다.');</script>`
+        `<script type="text/javascript">window.location="/auth/signup";alert('이미 존재하는 사용자입니다.');</script>`
       );
     } else {
       const hash = await bcrypt.hash(password, 12);

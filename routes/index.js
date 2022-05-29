@@ -5,6 +5,7 @@ const { isLoggedIn } = require("./middlewares");
 const { getUser, getDeptId } = require("./user");
 const { Op } = require("sequelize");
 const { myDate, equalDate } = require("./date");
+const { response } = require("express");
 
 // 요구사항 9번) 현재 진행 중인 프로젝트 페이지에서는 프로젝트 기본 내용과
 // 프로젝트 참가 혹은 중지를 결정할 수 있다.(프로젝트 기본 내용 부분)
@@ -38,7 +39,7 @@ router.get("/", async (req, res, next) => {
     });
   }
   res.render("index", {
-    title: "Express",
+    title: "Home",
     prj_before: participate,
     prj_cur: non_participate,
   });
@@ -190,6 +191,54 @@ router.post("/stopProj", async (req, res, next) => {
     );
     res.end();
   }
+});
+
+router.get("/myList", isLoggedIn, async (req, res, next) => {
+  let partPageNum = req.query.partPage;
+  let partOffset = 0;
+
+  if (partPageNum > 1) {
+    partOffset = 5 * (partPageNum - 1);
+  }
+
+  let participate = await Emp_Proj.findAll({
+    include: [
+      {
+        model: Employee,
+        attributes: ["id"],
+        where: { id: req.user.id },
+      },
+      {
+        model: Project,
+      },
+      {
+        model: Role,
+      },
+    ],
+    offset: partOffset,
+    limit: 5,
+    order: [[Project, "proj_start_date", "DESC"]],
+  });
+
+  let nonPageNum = req.query.nonPage;
+  let nonOffset = 0;
+
+  if (nonPageNum > 1) {
+    nonOffset = 5 * (nonPageNum - 1);
+  }
+  const participate_proj = participate.map((value) => {
+    return value.Project.id;
+  });
+
+  non_participate = await Project.findAll({
+    where: {
+      id: { [Op.notIn]: participate_proj },
+    },
+    offset: nonOffset,
+    limit: 5,
+    order: [["proj_start_date", "desc"]],
+  });
+  res.send([participate, non_participate]);
 });
 
 module.exports = router;

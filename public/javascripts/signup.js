@@ -16,6 +16,6 @@ document.getElementById("signup").addEventListener("submit", (e) => {
   const resultTag = document.getElementById("checkresult");
   if (!resultTag.innerHTML) {
     e.preventDefault();
-    alert("중복 체크를 해주세요");
+    alert("중복확인을 해주세요");
   }
 });
