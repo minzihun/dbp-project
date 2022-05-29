@@ -45,6 +45,6 @@ block content
                 tr 
                   td #{value.Employee.emp_name}
                   td #{value.Role.role_name}
-                  td #{value.part_start_date}
-                  td #{value.part_end_date}
+                  td #{value.part_start_date.slice(0,10)}
+                  td #{value.part_end_date.slice(0,10)}
     button.btn.btn-black.btn-empty(type="submit", style="float: right") 수정완료
