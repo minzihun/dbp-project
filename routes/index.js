@@ -69,8 +69,16 @@ router.get("/updateMyInfo", isLoggedIn, (req, res, next) => {
 // 데이터베이스에 저장 및 수정할 수 있다.
 /* POST mypage */
 router.post("/updateMyInfo", isLoggedIn, async (req, res, next) => {
-  const { name, final_edu, skill, career, dept } = req.body;
+  const { name, final_edu, skill, career, dept, emp_PW } = req.body;
   const Dept_id = getDeptId(dept);
+
+  const del = emp_PW.replace(/(\s*)/g, "");
+  console.log("===============================");
+  console.log(emp_PW);
+  console.log(del);
+  console.log(!emp_PW);
+  console.log(!del);
+  console.log("----------------------------------");
   try {
     const afterEmp = await Employee.update(
       {

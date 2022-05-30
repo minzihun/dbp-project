@@ -15,6 +15,11 @@ block content
                             p.text-h3.ml-3 #{current_user.emp_ID}
                     .col-12.col-sm-6.pt-3.pt-sm-0
                         h3
+                        strong 비밀번호
+                            input.form-control.text-h3.ml-3(type="password", name="emp_PW")
+                        
+                    .col-12.col-sm-6.pt-3.pt-sm-0
+                        h3
                         strong 이름
                             input.form-control.text-h3.ml-3(type="text", name="name" value=`${current_user.emp_name}`)
                     .col-12.col-sm-6.pt-3.pt-sm-0
