@@ -59,4 +59,4 @@ CREATE INDEX IDX_PERIOD ON project(proj_start_date, proj_end_date);
 - Implementation of pagination in case of increased staffing.
 
 # Screenshot
-
+![화면-기록-2022-07-16-오전-1 08 17](https://user-images.githubusercontent.com/43008762/179264567-7841d8aa-3d9e-4572-9089-f9eea4af726b.gif)
